@@ -1,0 +1,15 @@
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  font-family: 'Changa', sans-serif;
+  text-transform: uppercase;
+  color: #ffffff;
+}
+
+.logo__text {
+  @media (max-width: 767px) {
+    display: none;
+  }
+}
