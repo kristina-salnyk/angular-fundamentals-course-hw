@@ -6,10 +6,10 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./button.component.scss'],
 })
 export class ButtonComponent {
+  @Input() className = 'button--primary';
   @Input() type = 'button';
   @Input() icon = '';
   @Input() text = '';
-  @Input() className = 'button--primary';
 
   onClick(){
     console.log('click')

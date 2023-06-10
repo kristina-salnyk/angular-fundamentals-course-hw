@@ -34,7 +34,6 @@ $angular-fundamentals-course-hw-theme: mat.define-light-theme((
 @include mat.all-component-themes($angular-fundamentals-course-hw-theme);
 
 /* You can add global styles to this file, and also import other style files */
-
 * {
   box-sizing: border-box;
 }
@@ -76,6 +75,10 @@ ul {
   padding: 0;
 }
 
+main {
+  min-height: calc(100vh - 72px - 69px);
+}
+
 .container {
   margin: 0 auto;
   padding: 0 16px;
@@ -88,10 +91,4 @@ ul {
   @media (min-width: 1200px) {
     max-width: 1200px;
   }
-}
-
-.component {
-  padding: 20px;
-  margin: 10px;
-  border: 1px solid #000000;
 }

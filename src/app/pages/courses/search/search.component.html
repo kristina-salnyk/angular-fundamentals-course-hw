@@ -1,5 +1,7 @@
-<div class="component">
-  <p>The Search Component</p>
-  <app-input></app-input>
-  <app-button [text]="'Search'"></app-button>
-</div>
+<form class="search">
+  <app-input
+    class="search__input"
+    [type]="'search'"
+    [placeholder]="'Type to search'"></app-input>
+  <app-button [type]="'submit'" [text]="'Search'"></app-button>
+</form>
