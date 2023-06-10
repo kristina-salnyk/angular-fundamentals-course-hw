@@ -1,5 +1,11 @@
 <div class="component">
   <p>The Course Item Component</p>
-  <app-button></app-button>
-  <app-button></app-button>
+  <app-button
+    [className]="'button--secondary'"
+    [text]="'Edit'"
+    [icon]="'edit'"></app-button>
+  <app-button
+    [className]="'button--secondary'"
+    [text]="'Delete'"
+    [icon]="'delete'"></app-button>
 </div>

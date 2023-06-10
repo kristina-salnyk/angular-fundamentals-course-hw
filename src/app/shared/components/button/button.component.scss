@@ -1,0 +1,33 @@
+.button {
+  padding: 10px 20px;
+
+  display: flex;
+  align-items: center;
+  gap: 4px;
+
+  font-size: 14px;
+  font-weight: 700;
+  white-space: nowrap;
+  border: none;
+  border-radius: 4px;
+  color: #ffffff;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.7;
+  }
+}
+
+.button__icon{
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.button--primary{
+  background-color: #95c037;
+}
+
+.button--secondary{
+  background-color: #32aed4;
+}
