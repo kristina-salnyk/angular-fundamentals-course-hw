@@ -1,0 +1,19 @@
+.footer {
+  background-color: #414350;
+}
+
+.footer__wrap {
+  padding: 16px;
+  display: flex;
+  justify-content: center;
+
+  @media (min-width: 1200px) {
+    justify-content: flex-end;
+  }
+}
+
+.footer__text{
+  padding: 8px;
+  font-size: 14px;
+  color: #ffffff;
+}
