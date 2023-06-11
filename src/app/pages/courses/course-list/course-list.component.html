@@ -1,5 +1,5 @@
-<div>
-  <app-course-item></app-course-item>
-  <app-course-item></app-course-item>
-  <app-course-item></app-course-item>
-</div>
+<ul>
+  <app-course-item
+    *ngFor="let course of courses"
+    [course]="course"></app-course-item>
+</ul>

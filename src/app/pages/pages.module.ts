@@ -5,6 +5,7 @@ import { SearchComponent } from './courses/search/search.component';
 import { CourseListComponent } from './courses/course-list/course-list.component';
 import { CourseItemComponent } from './courses/course-list/course-item/course-item.component';
 import { SharedModule } from '../shared/shared.module';
+import { NgForOf } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,6 @@ import { SharedModule } from '../shared/shared.module';
     CourseItemComponent,
   ],
   exports: [CoursesComponent],
-  imports: [SharedModule],
+  imports: [SharedModule, NgForOf],
 })
 export class PagesModule {}
