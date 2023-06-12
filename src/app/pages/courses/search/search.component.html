@@ -1,7 +1,10 @@
 <form class="search" (submit)="onSubmit($event)">
   <app-input
     class="search__input"
+    [name]="'query'"
     [type]="'search'"
-    [placeholder]="'Type to search'"></app-input>
+    [placeholder]="'Type to search'"
+    #searchInput>
+  </app-input>
   <app-button [type]="'submit'" [text]="'Search'"></app-button>
 </form>

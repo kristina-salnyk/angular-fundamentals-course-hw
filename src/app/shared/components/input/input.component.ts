@@ -7,5 +7,7 @@ import { Component, Input } from '@angular/core';
 })
 export class InputComponent {
   @Input() type = 'text';
+  @Input() name = '';
   @Input() placeholder = '';
+  @Input() value = '';
 }

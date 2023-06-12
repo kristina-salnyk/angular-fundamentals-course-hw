@@ -11,7 +11,5 @@ export class ButtonComponent {
   @Input() icon = '';
   @Input() text = '';
 
-  onClick(){
-    console.log('click')
-  }
+  onClick() {}
 }
