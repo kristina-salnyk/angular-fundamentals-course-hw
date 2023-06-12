@@ -26,4 +26,20 @@ export class CoursesComponent {
       creationDate: '08/28/2020',
     },
   ];
+
+  onLoadMoreClick() {
+    console.log('Load more click');
+  }
+
+  onAddCourseClick() {
+    console.log('Add course click');
+  }
+
+  onEditCourse(course: Course) {
+    console.log('Edit click on ' + course.id);
+  }
+
+  onDeleteCourse(course: Course) {
+    console.log('Delete click on ' + course.id);
+  }
 }

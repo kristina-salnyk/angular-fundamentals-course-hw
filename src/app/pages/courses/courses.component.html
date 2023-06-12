@@ -6,9 +6,18 @@
         class="courses__button--end"
         [className]="'button--secondary'"
         [text]="'Add course'"
-        [icon]="'add_circle_outline'"></app-button>
-      <app-course-list [courses]="courses"></app-course-list>
-      <app-button class="courses__button--center" [text]="'Load more'">
+        [icon]="'add_circle_outline'"
+        (clickEvent)="onAddCourseClick()">
+      </app-button>
+      <app-course-list
+        [courses]="courses"
+        (editCourseEvent)="onEditCourse($event)"
+        (deleteCourseEvent)="onDeleteCourse($event)">
+      </app-course-list>
+      <app-button
+        class="courses__button--center"
+        [text]="'Load more'"
+        (clickEvent)="onLoadMoreClick()">
       </app-button>
     </div>
   </div>

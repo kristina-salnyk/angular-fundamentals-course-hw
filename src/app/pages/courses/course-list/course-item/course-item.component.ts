@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { Course } from '../../../../core/models/Course.model';
 import { formatDurationToString } from '../../../../shared/helpers/formatDurationToString';
@@ -16,6 +16,16 @@ export class CourseItemComponent {
     duration: 0,
     creationDate: '',
   };
+  @Output() editEvent = new EventEmitter<void>();
+  @Output() deleteEvent = new EventEmitter<void>();
 
-  protected readonly formatDurationToString = formatDurationToString;
+  formatDurationToString = formatDurationToString;
+
+  onEditClick() {
+    this.editEvent.emit();
+  }
+
+  onDeleteClick() {
+    this.deleteEvent.emit();
+  }
 }

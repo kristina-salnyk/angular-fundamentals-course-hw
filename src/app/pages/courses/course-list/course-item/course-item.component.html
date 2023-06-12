@@ -19,11 +19,15 @@
         <app-button
           [className]="'button--secondary'"
           [text]="'Edit'"
-          [icon]="'edit'"></app-button>
+          [icon]="'edit'"
+          (clickEvent)="onEditClick()">
+        </app-button>
         <app-button
           [className]="'button--secondary'"
           [text]="'Delete'"
-          [icon]="'delete'"></app-button>
+          [icon]="'delete'"
+          (clickEvent)="onDeleteClick()">
+        </app-button>
       </div>
     </div>
   </div>
