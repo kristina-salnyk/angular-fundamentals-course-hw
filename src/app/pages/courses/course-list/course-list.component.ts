@@ -11,19 +11,19 @@ export class CourseListComponent {
   courses: Course[] = [
     {
       id: '1',
-      title: 'Angular',
+      title: 'Video Course 1. Name tag',
       description:
-        'Get started quickly learning the new version of Angular. You will be introduced to Angular core concepts, then discover best practices for setting up Angular apps with its CLI, and finally, begin to explore Angular features like forms.',
-      duration: 120,
-      creationDate: new Date('2023-06-06'),
+        "Learn about where you can find course descriptions, what information they include, how they work, and details about various components of a course description. Course descriptions report information about a university or college's classes. They're published both in course catalogs that outline degree requirements and in course schedules that contain descriptions for all courses offered during a particular semester.",
+      duration: 88,
+      creationDate: '08/28/2020',
     },
     {
       id: '2',
-      title: 'Angular 2',
+      title: 'Video Course 2. Name tag',
       description:
-        'Get started quickly learning the new version of Angular. You will be introduced to Angular core concepts, then discover best practices for setting up Angular apps with its CLI, and finally, begin to explore Angular features like forms.',
-      duration: 120,
-      creationDate: new Date('2023-06-06'),
+        "Learn about where you can find course descriptions, what information they include, how they work, and details about various components of a course description. Course descriptions report information about a university or college's classes. They're published both in course catalogs that outline degree requirements and in course schedules that contain descriptions for all courses offered during a particular semester.",
+      duration: 88,
+      creationDate: '08/28/2020',
     },
   ];
 }

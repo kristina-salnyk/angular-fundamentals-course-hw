@@ -1,5 +1,5 @@
 .header {
-  background-color: #414350;
+  background-color: #303240;
 }
 
 .header__wrap {
@@ -19,10 +19,16 @@
   padding: 8px;
   display: flex;
   align-items: center;
-
-  font-size: 14px;
-  color: #ffffff;
   white-space: nowrap;
+  color: #ffffff;
+}
+
+.header__link {
+  transition: opacity 0.3s cubic-bezier(0.7, 0.98, 0.86, 0.98);
+
+  &:hover {
+    opacity: 0.7;
+  }
 }
 
 .navbar__icon {

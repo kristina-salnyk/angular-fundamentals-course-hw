@@ -1,11 +1,12 @@
 .input {
   padding: 9px;
+  width: 100%;
   font-size: 14px;
   background-color: #ffffff;
-  border: 1px solid #bdbdc2;
+  border: 1px solid #ced0db;
   border-radius: 4px;
   outline: none;
-  width: 100%;
+  transition: border-color 0.3s cubic-bezier(0.7, 0.98, 0.86, 0.98);
 
   &:focus {
     border-color: #76767c;

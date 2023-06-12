@@ -9,8 +9,12 @@
 
 .location__item {
   padding: 8px;
-  font-size: 14px;
   font-weight: 700;
-  color: #2e2e2e;
   white-space: nowrap;
+  color: #2e2e2e;
+  transition: opacity 0.3s cubic-bezier(0.7, 0.98, 0.86, 0.98);
+
+  &:hover {
+    opacity: 0.7;
+  }
 }
