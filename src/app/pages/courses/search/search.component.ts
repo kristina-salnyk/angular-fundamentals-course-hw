@@ -9,7 +9,7 @@ import { InputComponent } from '../../../shared/components/input/input.component
 })
 export class SearchComponent {
   @ViewChild('searchInput', { static: true })
-  searchInputRef: InputComponent | undefined;
+  searchInputRef?: InputComponent;
 
   onSubmit(event: Event) {
     event.preventDefault();
