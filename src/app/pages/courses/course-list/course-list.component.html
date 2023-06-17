@@ -2,8 +2,8 @@
   <li *ngFor="let course of courses">
     <app-course-item
       [course]="course"
-      (editEvent)="onEditCourse(course)"
-      (deleteEvent)="onDeleteCourse(course)">
+      (courseEdit)="onEditCourse(course)"
+      (courseDelete)="onDeleteCourse(course)">
     </app-course-item>
   </li>
 </ul>

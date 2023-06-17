@@ -9,14 +9,14 @@ import { Course } from '../../../core/models/Course.model';
 })
 export class CourseListComponent {
   @Input() courses: Course[] = [];
-  @Output() editCourseEvent = new EventEmitter<Course>();
-  @Output() deleteCourseEvent = new EventEmitter<Course>();
+  @Output() courseEdit = new EventEmitter<Course>();
+  @Output() courseDelete = new EventEmitter<Course>();
 
   onEditCourse(course: Course) {
-    this.editCourseEvent.emit(course);
+    this.courseEdit.emit(course);
   }
 
   onDeleteCourse(course: Course) {
-    this.deleteCourseEvent.emit(course);
+    this.courseDelete.emit(course);
   }
 }

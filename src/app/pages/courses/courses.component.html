@@ -7,17 +7,17 @@
         [className]="'button--secondary'"
         [text]="'Add course'"
         [icon]="'add_circle_outline'"
-        (clickEvent)="onAddCourseClick()">
+        (buttonClick)="onAddCourseClick()">
       </app-button>
       <app-course-list
         [courses]="courses"
-        (editCourseEvent)="onEditCourse($event)"
-        (deleteCourseEvent)="onDeleteCourse($event)">
+        (courseEdit)="onEditCourse($event)"
+        (courseDelete)="onDeleteCourse($event)">
       </app-course-list>
       <app-button
         class="courses__button--center"
         [text]="'Load more'"
-        (clickEvent)="onLoadMoreClick()">
+        (buttonClick)="onLoadMoreClick()">
       </app-button>
     </div>
   </div>

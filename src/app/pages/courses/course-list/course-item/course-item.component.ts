@@ -16,16 +16,16 @@ export class CourseItemComponent {
     duration: 0,
     creationDate: '',
   };
-  @Output() editEvent = new EventEmitter<void>();
-  @Output() deleteEvent = new EventEmitter<void>();
+  @Output() courseEdit = new EventEmitter<void>();
+  @Output() courseDelete = new EventEmitter<void>();
 
   formatDurationToString = formatDurationToString;
 
   onEditClick() {
-    this.editEvent.emit();
+    this.courseEdit.emit();
   }
 
   onDeleteClick() {
-    this.deleteEvent.emit();
+    this.courseDelete.emit();
   }
 }

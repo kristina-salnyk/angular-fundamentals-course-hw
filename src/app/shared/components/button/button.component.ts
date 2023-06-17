@@ -10,9 +10,9 @@ export class ButtonComponent {
   @Input() type = 'button';
   @Input() icon = '';
   @Input() text = '';
-  @Output() clickEvent = new EventEmitter<void>();
+  @Output() buttonClick = new EventEmitter<void>();
 
   onClick() {
-    this.clickEvent.emit();
+    this.buttonClick.emit();
   }
 }

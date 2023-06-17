@@ -1,6 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
-
-import { InputComponent } from '../../../shared/components/input/input.component';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-search',
@@ -8,11 +6,10 @@ import { InputComponent } from '../../../shared/components/input/input.component
   styleUrls: ['./search.component.scss'],
 })
 export class SearchComponent {
-  @ViewChild('searchInput', { static: true })
-  searchInputRef?: InputComponent;
+  searchQuery = '';
 
   onSubmit(event: Event) {
     event.preventDefault();
-    console.log(this.searchInputRef?.value);
+    console.log(this.searchQuery);
   }
 }
