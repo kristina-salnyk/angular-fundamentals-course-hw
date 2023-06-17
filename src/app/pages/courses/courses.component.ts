@@ -1,4 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  AfterContentChecked,
+  AfterContentInit,
+  AfterViewChecked,
+  AfterViewInit,
+  Component,
+  DoCheck,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 
 import { Course } from '../../core/models/Course.model';
 
@@ -7,10 +17,26 @@ import { Course } from '../../core/models/Course.model';
   templateUrl: './courses.component.html',
   styleUrls: ['./courses.component.scss'],
 })
-export class CoursesComponent implements OnInit {
+export class CoursesComponent
+  implements
+    OnChanges,
+    OnInit,
+    DoCheck,
+    AfterContentInit,
+    AfterContentChecked,
+    AfterViewInit,
+    AfterViewChecked,
+    OnDestroy
+{
   courses: Course[] = [];
 
+  ngOnChanges() {
+    console.log('OnChanges hook (only if component has Inputs)');
+  }
+
   ngOnInit() {
+    console.log('OnInit hook');
+
     this.courses = [
       {
         id: '1',
@@ -29,6 +55,30 @@ export class CoursesComponent implements OnInit {
         creationDate: '08/28/2020',
       },
     ];
+  }
+
+  ngDoCheck() {
+    console.log('DoCheck hook');
+  }
+
+  ngAfterContentInit() {
+    console.log('AfterContentInit hook');
+  }
+
+  ngAfterContentChecked() {
+    console.log('AfterContentChecked hook');
+  }
+
+  ngAfterViewInit() {
+    console.log('AfterViewInit hook');
+  }
+
+  ngAfterViewChecked() {
+    console.log('AfterViewChecked hook');
+  }
+
+  ngOnDestroy() {
+    console.log('OnDestroy hook');
   }
 
   onLoadMoreClick() {
