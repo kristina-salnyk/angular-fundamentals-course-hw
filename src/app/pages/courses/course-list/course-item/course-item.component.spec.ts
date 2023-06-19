@@ -89,7 +89,7 @@ describe('CourseItemComponent', () => {
       expect(component.courseEdit.emit).toHaveBeenCalled();
     });
 
-    it('should raise courseCardDelete event when Delete button is clicked', () => {
+    it('should raise courseDelete event when Delete button is clicked', () => {
       spyOn(component.courseDelete, 'emit');
 
       const deleteButton = courseCardDe.query(
