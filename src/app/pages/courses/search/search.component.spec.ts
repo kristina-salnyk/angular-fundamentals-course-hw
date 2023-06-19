@@ -23,3 +23,19 @@ describe('SearchComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+
+describe('SearchComponent class-only', () => {
+  let component: SearchComponent;
+
+  beforeEach(() => {
+    component = new SearchComponent();
+  });
+
+  it('should log the current search query when onSubmit method is called', () => {
+    component.searchQuery = 'Name tag';
+
+    spyOn(console, 'log');
+    component.onSubmit(new Event('submit'));
+    expect(console.log).toHaveBeenCalledWith(component.searchQuery);
+  });
+});

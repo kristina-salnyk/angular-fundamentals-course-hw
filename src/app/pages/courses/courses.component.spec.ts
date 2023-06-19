@@ -34,3 +34,22 @@ describe('CoursesComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+
+describe('CoursesComponent class-only', () => {
+  let component: CoursesComponent;
+
+  beforeEach(() => {
+    component = new CoursesComponent();
+  });
+
+  describe('ngOnInit', () => {
+    it('should have an empty array of courses after construction', () => {
+      expect(component.courses).toEqual([]);
+    });
+
+    it('should have a non-empty array of courses after ngOnInit is called', () => {
+      component.ngOnInit();
+      expect(component.courses.length).toBeGreaterThan(0);
+    });
+  });
+});
