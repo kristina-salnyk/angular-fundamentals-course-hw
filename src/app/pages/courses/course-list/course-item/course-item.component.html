@@ -20,12 +20,14 @@
           [className]="'button--secondary'"
           [text]="'Edit'"
           [icon]="'edit'"
+          [dataTestId]="'edit-button'"
           (buttonClick)="onEditClick()">
         </app-button>
         <app-button
           [className]="'button--secondary'"
           [text]="'Delete'"
           [icon]="'delete'"
+          [dataTestId]="'delete-button'"
           (buttonClick)="onDeleteClick()">
         </app-button>
       </div>

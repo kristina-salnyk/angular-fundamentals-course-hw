@@ -26,15 +26,14 @@ describe('CourseItemComponent', () => {
   });
 
   describe('course card', () => {
-    let courseDe: DebugElement;
-    let courseEl: HTMLElement;
+    let courseCardDe: DebugElement;
+    let courseCardEl: HTMLElement;
     let course: Course;
-    let courseDuration: string;
-    let formatDurationToStringMock: jasmine.SpyObj<CourseItemComponent>;
+    let courseItemComponentSpy: jasmine.SpyObj<CourseItemComponent>;
 
     beforeEach(() => {
-      courseDe = fixture.debugElement.query(By.css('.course-card'));
-      courseEl = courseDe.nativeElement;
+      courseCardDe = fixture.debugElement.query(By.css('.course-card'));
+      courseCardEl = courseCardDe.nativeElement;
 
       course = {
         id: '1',
@@ -45,39 +44,60 @@ describe('CourseItemComponent', () => {
         creationDate: '08/28/2020',
       };
 
-      courseDuration = '1h 28min';
-
       component.course = course;
 
-      formatDurationToStringMock = jasmine.createSpyObj(
+      courseItemComponentSpy = jasmine.createSpyObj('formatDurationToString', [
         'formatDurationToString',
-        ['formatDurationToString']
-      );
-      formatDurationToStringMock.formatDurationToString.and.returnValue(
-        courseDuration
+      ]);
+      courseItemComponentSpy.formatDurationToString.and.returnValue(
+        '1h 28 min'
       );
 
       spyOn(component, 'formatDurationToString').and.returnValue(
-        formatDurationToStringMock.formatDurationToString(0)
+        courseItemComponentSpy.formatDurationToString(0)
       );
 
       fixture.detectChanges();
     });
 
     it('should display course title', () => {
-      expect(courseEl.textContent).toContain(course.title);
+      expect(courseCardEl.textContent).toContain(course.title);
     });
 
     it('should display course description', () => {
-      expect(courseEl.textContent).toContain(course.description);
+      expect(courseCardEl.textContent).toContain(course.description);
     });
 
     it('should display course duration in the correct format', () => {
-      expect(courseEl.textContent).toContain(courseDuration);
+      expect(courseCardEl.textContent).toContain(
+        courseItemComponentSpy.formatDurationToString(0)
+      );
     });
 
     it('should display course creation date', () => {
-      expect(courseEl.textContent).toContain(course.creationDate);
+      expect(courseCardEl.textContent).toContain(course.creationDate);
+    });
+
+    it('should raise courseEdit event when Edit button is clicked', () => {
+      spyOn(component.courseEdit, 'emit');
+
+      const editButton = courseCardDe.query(
+        By.css('[data-testid="edit-button"]')
+      );
+
+      editButton.nativeElement.click();
+      expect(component.courseEdit.emit).toHaveBeenCalled();
+    });
+
+    it('should raise courseCardDelete event when Delete button is clicked', () => {
+      spyOn(component.courseDelete, 'emit');
+
+      const deleteButton = courseCardDe.query(
+        By.css('[data-testid="delete-button"]')
+      );
+
+      deleteButton.nativeElement.click();
+      expect(component.courseDelete.emit).toHaveBeenCalled();
     });
   });
 });
