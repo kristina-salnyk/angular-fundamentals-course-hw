@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatIconModule } from '@angular/material/icon';
 
 import { HeaderComponent } from './header.component';
+import { LogoComponent } from './logo/logo.component';
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
@@ -8,7 +10,8 @@ describe('HeaderComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [HeaderComponent],
+      declarations: [HeaderComponent, LogoComponent],
+      imports: [MatIconModule],
     });
     fixture = TestBed.createComponent(HeaderComponent);
     component = fixture.componentInstance;
