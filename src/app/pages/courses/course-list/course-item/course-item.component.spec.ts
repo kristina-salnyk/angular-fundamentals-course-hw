@@ -78,7 +78,7 @@ describe('CourseItemComponent', () => {
       expect(courseCardEl.textContent).toContain(course.creationDate);
     });
 
-    it('should raise courseEdit event when Edit button is clicked', () => {
+    it("should raise courseEdit event when 'Edit' button is clicked", () => {
       spyOn(component.courseEdit, 'emit');
 
       const editButton = courseCardDe.query(
@@ -89,7 +89,7 @@ describe('CourseItemComponent', () => {
       expect(component.courseEdit.emit).toHaveBeenCalled();
     });
 
-    it('should raise courseDelete event when Delete button is clicked', () => {
+    it("should raise courseDelete event when 'Delete' button is clicked", () => {
       spyOn(component.courseDelete, 'emit');
 
       const deleteButton = courseCardDe.query(
