@@ -6,7 +6,6 @@ import { Course } from '../../../core/models/Course.model';
 describe('CourseListComponent', () => {
   let component: CourseListComponent;
   let fixture: ComponentFixture<CourseListComponent>;
-  let course: Course;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -17,7 +16,18 @@ describe('CourseListComponent', () => {
     fixture.detectChanges();
   });
 
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});
+
+describe('CourseListComponent class-only', () => {
+  let component: CourseListComponent;
+  let course: Course;
+
   beforeEach(() => {
+    component = new CourseListComponent();
+
     course = {
       id: '1',
       title: 'Video Course 1. Name tag',
@@ -26,27 +36,17 @@ describe('CourseListComponent', () => {
       duration: 88,
       creationDate: '08/28/2020',
     };
-
-    component.courses.push(course);
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
   });
 
   it('should raise courseEdit event with the selected course', () => {
     spyOn(component.courseEdit, 'emit');
-
     component.onEditCourse(course);
-
     expect(component.courseEdit.emit).toHaveBeenCalledWith(course);
   });
 
   it('should raise courseDelete event with the selected course', () => {
     spyOn(component.courseDelete, 'emit');
-
     component.onDeleteCourse(course);
-
     expect(component.courseDelete.emit).toHaveBeenCalledWith(course);
   });
 });
