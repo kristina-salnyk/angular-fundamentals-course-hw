@@ -5,7 +5,6 @@ import {
   AfterViewInit,
   Component,
   DoCheck,
-  OnChanges,
   OnDestroy,
   OnInit,
 } from '@angular/core';
@@ -17,9 +16,9 @@ import { Course } from '../../core/models/Course.model';
   templateUrl: './courses.component.html',
   styleUrls: ['./courses.component.scss'],
 })
+// OnChanges,
 export class CoursesComponent
   implements
-    OnChanges,
     OnInit,
     DoCheck,
     AfterContentInit,
@@ -30,9 +29,9 @@ export class CoursesComponent
 {
   courses: Course[] = [];
 
-  ngOnChanges() {
-    console.log('OnChanges hook (only if component has Inputs)');
-  }
+  // ngOnChanges() {
+  //   console.log('OnChanges hook (only if component has Inputs)');
+  // }
 
   ngOnInit() {
     console.log('OnInit hook');
