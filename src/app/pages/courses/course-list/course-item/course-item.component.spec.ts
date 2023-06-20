@@ -144,7 +144,7 @@ describe('CourseItemComponent stand-alone', () => {
 
     const editBtn = courseDe.query(By.css('[data-testid="edit-button"]'));
 
-    editBtn.nativeElement.click();
+    editBtn.triggerEventHandler('click');
     expect(component.courseEdit.emit).toHaveBeenCalled();
   });
 
@@ -153,7 +153,7 @@ describe('CourseItemComponent stand-alone', () => {
 
     const deleteBtn = courseDe.query(By.css('[data-testid="delete-button"]'));
 
-    deleteBtn.nativeElement.click();
+    deleteBtn.triggerEventHandler('click');
     expect(component.courseDelete.emit).toHaveBeenCalled();
   });
 });
@@ -206,14 +206,14 @@ describe('CourseItemComponent test-host', () => {
   it("should raise courseEdit event when 'Edit' button is clicked", () => {
     const editBtn = courseDe.query(By.css('[data-testid="edit-button"]'));
 
-    editBtn.nativeElement.click();
+    editBtn.triggerEventHandler('click');
     expect(testHost.courseEdit).toBe(testHost.course);
   });
 
   it("should raise courseDelete event when 'Delete' button is clicked", () => {
     const deleteBtn = courseDe.query(By.css('[data-testid="delete-button"]'));
 
-    deleteBtn.nativeElement.click();
+    deleteBtn.triggerEventHandler('click');
     expect(testHost.courseDelete).toBe(testHost.course);
   });
 });
