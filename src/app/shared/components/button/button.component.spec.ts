@@ -19,3 +19,17 @@ describe('ButtonComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+
+describe('ButtonComponent class-only', () => {
+  let component: ButtonComponent;
+
+  beforeEach(() => {
+    component = new ButtonComponent();
+  });
+
+  it('should raise the buttonClick event when onClick method is called', () => {
+    spyOn(component.buttonClick, 'emit');
+    component.onClick();
+    expect(component.buttonClick.emit).toHaveBeenCalled();
+  });
+});
