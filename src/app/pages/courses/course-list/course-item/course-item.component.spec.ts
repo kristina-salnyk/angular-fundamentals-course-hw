@@ -1,11 +1,41 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MatIconModule } from '@angular/material/icon';
-import { DebugElement } from '@angular/core';
+import { Component, DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 
 import { CourseItemComponent } from './course-item.component';
 import { ButtonComponent } from '../../../../shared/components/button/button.component';
 import { Course } from '../../../../core/models/Course.model';
+
+@Component({
+  selector: 'app-host-component',
+  template: `
+    <app-course-item
+      [course]="course"
+      (courseEdit)="onCourseEdit(course)"
+      (courseDelete)="onCourseDelete(course)">
+    </app-course-item>
+  `,
+})
+class TestHostComponent {
+  course: Course = {
+    id: '1',
+    title: 'Video Course 1. Name tag',
+    description:
+      "Learn about where you can find course descriptions, what information they include, how they work, and details about various components of a course description. Course descriptions report information about a university or college's classes. They're published both in course catalogs that outline degree requirements and in course schedules that contain descriptions for all courses offered during a particular semester.",
+    duration: 88,
+    creationDate: '08/28/2020',
+  };
+  courseEdit!: Course;
+  courseDelete!: Course;
+
+  onCourseEdit(course: Course) {
+    this.courseEdit = course;
+  }
+  onCourseDelete(course: Course) {
+    this.courseDelete = course;
+  }
+}
 
 describe('CourseItemComponent', () => {
   let component: CourseItemComponent;
@@ -24,80 +54,166 @@ describe('CourseItemComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+});
 
-  describe('course card', () => {
-    let courseCardDe: DebugElement;
-    let courseCardEl: HTMLElement;
-    let course: Course;
-    let courseItemComponentSpy: jasmine.SpyObj<CourseItemComponent>;
+describe('CourseItemComponent class-only', () => {
+  let component: CourseItemComponent;
 
-    beforeEach(() => {
-      courseCardDe = fixture.debugElement.query(By.css('.course-card'));
-      courseCardEl = courseCardDe.nativeElement;
+  beforeEach(() => {
+    component = new CourseItemComponent();
+  });
 
-      course = {
-        id: '1',
-        title: 'Video Course 1. Name tag',
-        description:
-          "Learn about where you can find course descriptions, what information they include, how they work, and details about various components of a course description. Course descriptions report information about a university or college's classes. They're published both in course catalogs that outline degree requirements and in course schedules that contain descriptions for all courses offered during a particular semester.",
-        duration: 88,
-        creationDate: '08/28/2020',
-      };
+  it('should raise courseEdit event when onEditClick method is called', () => {
+    spyOn(component.courseEdit, 'emit');
+    component.onEditClick();
+    expect(component.courseEdit.emit).toHaveBeenCalled();
+  });
 
-      component.course = course;
+  it('should raise courseDelete event when onDeleteClick method is called', () => {
+    spyOn(component.courseDelete, 'emit');
+    component.onDeleteClick();
+    expect(component.courseDelete.emit).toHaveBeenCalled();
+  });
+});
 
-      courseItemComponentSpy = jasmine.createSpyObj('formatDurationToString', [
-        'formatDurationToString',
-      ]);
-      courseItemComponentSpy.formatDurationToString.and.returnValue(
-        '1h 28 min'
-      );
+describe('CourseItemComponent stand-alone', () => {
+  let component: CourseItemComponent;
+  let fixture: ComponentFixture<CourseItemComponent>;
+  let courseDe: DebugElement;
+  let courseEl: HTMLElement;
+  let course: Course;
+  let courseItemComponentSpy: jasmine.SpyObj<CourseItemComponent>;
 
-      spyOn(component, 'formatDurationToString').and.returnValue(
-        courseItemComponentSpy.formatDurationToString(0)
-      );
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      declarations: [CourseItemComponent, ButtonComponent],
+      imports: [MatIconModule],
+    }).compileComponents();
+  }));
 
-      fixture.detectChanges();
-    });
+  beforeEach(() => {
+    fixture = TestBed.createComponent(CourseItemComponent);
+    component = fixture.componentInstance;
 
-    it('should display course title', () => {
-      expect(courseCardEl.textContent).toContain(course.title);
-    });
+    courseDe = fixture.debugElement.query(By.css('.course-card'));
+    courseEl = courseDe.nativeElement;
 
-    it('should display course description', () => {
-      expect(courseCardEl.textContent).toContain(course.description);
-    });
+    course = {
+      id: '1',
+      title: 'Video Course 1. Name tag',
+      description:
+        "Learn about where you can find course descriptions, what information they include, how they work, and details about various components of a course description. Course descriptions report information about a university or college's classes. They're published both in course catalogs that outline degree requirements and in course schedules that contain descriptions for all courses offered during a particular semester.",
+      duration: 88,
+      creationDate: '08/28/2020',
+    };
 
-    it('should display course duration in the correct format', () => {
-      expect(courseCardEl.textContent).toContain(
-        courseItemComponentSpy.formatDurationToString(0)
-      );
-    });
+    component.course = course;
 
-    it('should display course creation date', () => {
-      expect(courseCardEl.textContent).toContain(course.creationDate);
-    });
+    courseItemComponentSpy = jasmine.createSpyObj('formatDurationToString', [
+      'formatDurationToString',
+    ]);
+    courseItemComponentSpy.formatDurationToString.and.returnValue('1h 28 min');
 
-    it("should raise courseEdit event when 'Edit' button is clicked", () => {
-      spyOn(component.courseEdit, 'emit');
+    spyOn(component, 'formatDurationToString').and.returnValue(
+      courseItemComponentSpy.formatDurationToString(0)
+    );
 
-      const editButton = courseCardDe.query(
-        By.css('[data-testid="edit-button"]')
-      );
+    fixture.detectChanges();
+  });
 
-      editButton.nativeElement.click();
-      expect(component.courseEdit.emit).toHaveBeenCalled();
-    });
+  it('should display course title', () => {
+    expect(courseEl.textContent).toContain(course.title);
+  });
 
-    it("should raise courseDelete event when 'Delete' button is clicked", () => {
-      spyOn(component.courseDelete, 'emit');
+  it('should display course description', () => {
+    expect(courseEl.textContent).toContain(course.description);
+  });
 
-      const deleteButton = courseCardDe.query(
-        By.css('[data-testid="delete-button"]')
-      );
+  it('should display course duration in the correct format', () => {
+    expect(courseEl.textContent).toContain(
+      courseItemComponentSpy.formatDurationToString(course.duration)
+    );
+  });
 
-      deleteButton.nativeElement.click();
-      expect(component.courseDelete.emit).toHaveBeenCalled();
-    });
+  it('should display course creation date', () => {
+    expect(courseEl.textContent).toContain(course.creationDate);
+  });
+
+  it("should raise courseEdit event when 'Edit' button is clicked", () => {
+    spyOn(component.courseEdit, 'emit');
+
+    const editBtn = courseDe.query(By.css('[data-testid="edit-button"]'));
+
+    editBtn.nativeElement.click();
+    expect(component.courseEdit.emit).toHaveBeenCalled();
+  });
+
+  it("should raise courseDelete event when 'Delete' button is clicked", () => {
+    spyOn(component.courseDelete, 'emit');
+
+    const deleteBtn = courseDe.query(By.css('[data-testid="delete-button"]'));
+
+    deleteBtn.nativeElement.click();
+    expect(component.courseDelete.emit).toHaveBeenCalled();
+  });
+});
+
+describe('CourseItemComponent test-host', () => {
+  let testHost: TestHostComponent;
+  let fixture: ComponentFixture<TestHostComponent>;
+  let courseDe: DebugElement;
+  let courseEl: HTMLElement;
+  let component: CourseItemComponent;
+
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      declarations: [CourseItemComponent, ButtonComponent, TestHostComponent],
+      imports: [MatIconModule],
+    }).compileComponents();
+  }));
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(TestHostComponent);
+    testHost = fixture.componentInstance;
+    courseDe = fixture.debugElement.query(By.css('.course-card'));
+    courseEl = courseDe.nativeElement;
+
+    component = courseDe.injector.get(CourseItemComponent);
+    spyOn(component, 'formatDurationToString').and.returnValue('1h 28 min');
+
+    fixture.detectChanges();
+  });
+
+  it('should display course title', () => {
+    expect(courseEl.textContent).toContain(testHost.course.title);
+  });
+
+  it('should display course description', () => {
+    expect(courseEl.textContent).toContain(testHost.course.description);
+  });
+
+  it('should display course duration in the correct format', () => {
+    expect(component.formatDurationToString).toHaveBeenCalledWith(
+      testHost.course.duration
+    );
+    expect(courseEl.textContent).toContain('1h 28 min');
+  });
+
+  it('should display course creation date', () => {
+    expect(courseEl.textContent).toContain(testHost.course.creationDate);
+  });
+
+  it("should raise courseEdit event when 'Edit' button is clicked", () => {
+    const editBtn = courseDe.query(By.css('[data-testid="edit-button"]'));
+
+    editBtn.nativeElement.click();
+    expect(testHost.courseEdit).toBe(testHost.course);
+  });
+
+  it("should raise courseDelete event when 'Delete' button is clicked", () => {
+    const deleteBtn = courseDe.query(By.css('[data-testid="delete-button"]'));
+
+    deleteBtn.nativeElement.click();
+    expect(testHost.courseDelete).toBe(testHost.course);
   });
 });
