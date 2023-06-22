@@ -15,6 +15,7 @@ export class CourseItemComponent {
     description: '',
     duration: 0,
     creationDate: '',
+    topRated: false,
   };
   @Output() courseEdit = new EventEmitter<void>();
   @Output() courseDelete = new EventEmitter<void>();
