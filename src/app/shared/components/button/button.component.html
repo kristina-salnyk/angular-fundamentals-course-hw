@@ -1,7 +1,8 @@
 <button
   [class]="['button', className].join(' ')"
   [type]="type"
-  (click)="onClick()">
+  (click)="onClick()"
+  [attr.data-testid]="dataTestId">
   <mat-icon class="button__icon" *ngIf="icon">{{ icon }}</mat-icon>
   {{ text }}
 </button>
