@@ -66,13 +66,13 @@ describe('CourseItemComponent class-only', () => {
   it('should raise courseEdit event when onEditClick method is called', () => {
     spyOn(component.courseEdit, 'emit');
     component.onEditClick();
-    expect(component.courseEdit.emit).toHaveBeenCalled();
+    expect(component.courseEdit.emit).toHaveBeenCalledWith();
   });
 
   it('should raise courseDelete event when onDeleteClick method is called', () => {
     spyOn(component.courseDelete, 'emit');
     component.onDeleteClick();
-    expect(component.courseDelete.emit).toHaveBeenCalled();
+    expect(component.courseDelete.emit).toHaveBeenCalledWith();
   });
 });
 
@@ -145,7 +145,7 @@ describe('CourseItemComponent stand-alone', () => {
     const editBtn = courseDe.query(By.css('[data-testid="edit-button"]'));
 
     editBtn.triggerEventHandler('click');
-    expect(component.courseEdit.emit).toHaveBeenCalled();
+    expect(component.courseEdit.emit).toHaveBeenCalledWith();
   });
 
   it("should raise courseDelete event when 'Delete' button is clicked", () => {
@@ -154,7 +154,7 @@ describe('CourseItemComponent stand-alone', () => {
     const deleteBtn = courseDe.query(By.css('[data-testid="delete-button"]'));
 
     deleteBtn.triggerEventHandler('click');
-    expect(component.courseDelete.emit).toHaveBeenCalled();
+    expect(component.courseDelete.emit).toHaveBeenCalledWith();
   });
 });
 
