@@ -80,7 +80,6 @@ describe('CourseItemComponent stand-alone', () => {
   let component: CourseItemComponent;
   let fixture: ComponentFixture<CourseItemComponent>;
   let courseDe: DebugElement;
-  let courseEl: HTMLElement;
   let course: Course;
   let courseItemComponentSpy: jasmine.SpyObj<CourseItemComponent>;
 
@@ -96,7 +95,6 @@ describe('CourseItemComponent stand-alone', () => {
     component = fixture.componentInstance;
 
     courseDe = fixture.debugElement.query(By.css('.course-card'));
-    courseEl = courseDe.nativeElement;
 
     course = {
       id: '1',
@@ -122,38 +120,48 @@ describe('CourseItemComponent stand-alone', () => {
   });
 
   it('should display course title', () => {
-    expect(courseEl.textContent).toContain(course.title);
+    const titleDe = courseDe.query(By.css('[data-testid="course-title"]'));
+    expect(titleDe.nativeElement.textContent).toBe(course.title);
   });
 
   it('should display course description', () => {
-    expect(courseEl.textContent).toContain(course.description);
+    const descriptionDe = courseDe.query(
+      By.css('[data-testid="course-description"]')
+    );
+    expect(descriptionDe.nativeElement.textContent).toBe(course.description);
   });
 
   it('should display course duration in the correct format', () => {
-    expect(courseEl.textContent).toContain(
+    const durationDe = courseDe.query(
+      By.css('[data-testid="course-duration"]')
+    );
+    expect(durationDe.nativeElement.textContent).toBe(
       courseItemComponentSpy.formatDurationToString(course.duration)
     );
   });
 
   it('should display course creation date', () => {
-    expect(courseEl.textContent).toContain(course.creationDate);
+    const creationDateDe = courseDe.query(
+      By.css('[data-testid="course-creation-date"]')
+    );
+    expect(creationDateDe.nativeElement.textContent).toBe(course.creationDate);
   });
 
   it("should raise courseEdit event when 'Edit' button is clicked", () => {
     spyOn(component.courseEdit, 'emit');
 
-    const editBtn = courseDe.query(By.css('[data-testid="edit-button"]'));
+    const editBtnDe = courseDe.query(By.css('[data-testid="edit-button"]'));
 
-    editBtn.triggerEventHandler('click');
+    editBtnDe.triggerEventHandler('click');
     expect(component.courseEdit.emit).toHaveBeenCalledWith();
   });
 
   it("should raise courseDelete event when 'Delete' button is clicked", () => {
     spyOn(component.courseDelete, 'emit');
 
-    const deleteBtn = courseDe.query(By.css('[data-testid="delete-button"]'));
+    const deleteBtnDe = courseDe.query(By.css('[data-testid="delete-button"]'));
 
-    deleteBtn.triggerEventHandler('click');
+    deleteBtnDe.triggerEventHandler('click');
     expect(component.courseDelete.emit).toHaveBeenCalledWith();
   });
 });
@@ -162,7 +170,6 @@ describe('CourseItemComponent test-host', () => {
   let testHost: TestHostComponent;
   let fixture: ComponentFixture<TestHostComponent>;
   let courseDe: DebugElement;
-  let courseEl: HTMLElement;
   let component: CourseItemComponent;
 
   beforeEach(waitForAsync(() => {
@@ -176,7 +183,6 @@ describe('CourseItemComponent test-host', () => {
     fixture = TestBed.createComponent(TestHostComponent);
     testHost = fixture.componentInstance;
     courseDe = fixture.debugElement.query(By.css('.course-card'));
-    courseEl = courseDe.nativeElement;
 
     component = courseDe.injector.get(CourseItemComponent);
     spyOn(component, 'formatDurationToString').and.returnValue('1h 28 min');
@@ -185,35 +191,49 @@ describe('CourseItemComponent test-host', () => {
   });
 
   it('should display course title', () => {
-    expect(courseEl.textContent).toContain(testHost.course.title);
+    const titleDe = courseDe.query(By.css('[data-testid="course-title"]'));
+    expect(titleDe.nativeElement.textContent).toBe(testHost.course.title);
   });
 
   it('should display course description', () => {
-    expect(courseEl.textContent).toContain(testHost.course.description);
+    const descriptionDe = courseDe.query(
+      By.css('[data-testid="course-description"]')
+    );
+    expect(descriptionDe.nativeElement.textContent).toBe(
+      testHost.course.description
+    );
   });
 
   it('should display course duration in the correct format', () => {
+    const durationDe = courseDe.query(
+      By.css('[data-testid="course-duration"]')
+    );
     expect(component.formatDurationToString).toHaveBeenCalledWith(
       testHost.course.duration
     );
-    expect(courseEl.textContent).toContain('1h 28 min');
+    expect(durationDe.nativeElement.textContent).toBe('1h 28 min');
   });
 
   it('should display course creation date', () => {
-    expect(courseEl.textContent).toContain(testHost.course.creationDate);
+    const creationDateDe = courseDe.query(
+      By.css('[data-testid="course-creation-date"]')
+    );
+    expect(creationDateDe.nativeElement.textContent).toBe(
+      testHost.course.creationDate
+    );
   });
 
   it("should raise courseEdit event when 'Edit' button is clicked", () => {
-    const editBtn = courseDe.query(By.css('[data-testid="edit-button"]'));
+    const editBtnDe = courseDe.query(By.css('[data-testid="edit-button"]'));
 
-    editBtn.triggerEventHandler('click');
+    editBtnDe.triggerEventHandler('click');
     expect(testHost.courseEdit).toBe(testHost.course);
   });
 
   it("should raise courseDelete event when 'Delete' button is clicked", () => {
-    const deleteBtn = courseDe.query(By.css('[data-testid="delete-button"]'));
+    const deleteBtnDe = courseDe.query(By.css('[data-testid="delete-button"]'));
 
-    deleteBtn.triggerEventHandler('click');
+    deleteBtnDe.triggerEventHandler('click');
     expect(testHost.courseDelete).toBe(testHost.course);
   });
 });

@@ -52,6 +52,6 @@ describe('AppComponent', () => {
     const app = fixture.componentInstance;
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('span')?.textContent).toContain(app.title);
+    expect(compiled.querySelector('span')?.textContent).toBe(app.title);
   });
 });
