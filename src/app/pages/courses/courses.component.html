@@ -12,7 +12,6 @@
       </app-button>
       <ng-container *ngIf="courses.length > 0; else noData">
         <app-course-list
-          *ngIf="courses.length > 0; else noData"
           [courses]="courses"
           (courseEdit)="onEditCourse($event)"
           (courseDelete)="onDeleteCourse($event)">

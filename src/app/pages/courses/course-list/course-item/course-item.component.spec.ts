@@ -6,6 +6,7 @@ import { By } from '@angular/platform-browser';
 import { CourseItemComponent } from './course-item.component';
 import { ButtonComponent } from '../../../../shared/components/button/button.component';
 import { Course } from '../../../../core/models/Course.model';
+import { CourseItemBorderDirective } from '../../../../shared/directives/course-item-border.directive';
 
 @Component({
   selector: 'app-host-component',
@@ -44,7 +45,11 @@ describe('CourseItemComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [CourseItemComponent, ButtonComponent],
+      declarations: [
+        CourseItemComponent,
+        ButtonComponent,
+        CourseItemBorderDirective,
+      ],
       imports: [MatIconModule],
     });
     fixture = TestBed.createComponent(CourseItemComponent);
@@ -86,7 +91,11 @@ describe('CourseItemComponent stand-alone', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [CourseItemComponent, ButtonComponent],
+      declarations: [
+        CourseItemComponent,
+        ButtonComponent,
+        CourseItemBorderDirective,
+      ],
       imports: [MatIconModule],
     }).compileComponents();
   }));
@@ -176,7 +185,12 @@ describe('CourseItemComponent test-host', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [CourseItemComponent, ButtonComponent, TestHostComponent],
+      declarations: [
+        CourseItemComponent,
+        ButtonComponent,
+        CourseItemBorderDirective,
+        TestHostComponent,
+      ],
       imports: [MatIconModule],
     }).compileComponents();
   }));

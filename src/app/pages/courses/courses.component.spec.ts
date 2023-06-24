@@ -11,6 +11,7 @@ import { SearchComponent } from './search/search.component';
 import { ButtonComponent } from '../../shared/components/button/button.component';
 import { InputComponent } from '../../shared/components/input/input.component';
 import { Course } from '../../core/models/Course.model';
+import { CourseItemBorderDirective } from '../../shared/directives/course-item-border.directive';
 
 describe('CoursesComponent', () => {
   let component: CoursesComponent;
@@ -25,6 +26,7 @@ describe('CoursesComponent', () => {
         CourseItemComponent,
         ButtonComponent,
         InputComponent,
+        CourseItemBorderDirective,
       ],
       imports: [MatIconModule, FormsModule],
     });
@@ -52,6 +54,7 @@ describe('CoursesComponent class-only', () => {
         "Learn about where you can find course descriptions, what information they include, how they work, and details about various components of a course description. Course descriptions report information about a university or college's classes. They're published both in course catalogs that outline degree requirements and in course schedules that contain descriptions for all courses offered during a particular semester.",
       duration: 88,
       creationDate: '06/21/2023',
+      topRated: false,
     };
   });
 
@@ -92,6 +95,7 @@ describe('CoursesComponent stand-alone', () => {
         CourseItemComponent,
         ButtonComponent,
         InputComponent,
+        CourseItemBorderDirective,
       ],
       imports: [MatIconModule, FormsModule],
     }).compileComponents();
@@ -106,22 +110,22 @@ describe('CoursesComponent stand-alone', () => {
   it("should log 'Load more click' message when 'Load more' button is clicked", () => {
     spyOn(console, 'log');
 
-    const loadMoreBtn = coursesDe.query(
+    const loadMoreBtnDe = coursesDe.query(
       By.css('[data-testid="load-more-button"]')
     );
 
-    loadMoreBtn.triggerEventHandler('click');
+    loadMoreBtnDe.triggerEventHandler('click');
     expect(console.log).toHaveBeenCalledWith('Load more click');
   });
 
   it("should log 'Add course click' message when 'Add course' button is clicked", () => {
     spyOn(console, 'log');
 
-    const addCourseBtn = coursesDe.query(
+    const addCourseBtnDe = coursesDe.query(
       By.css('[data-testid="add-course-button"]')
     );
 
-    addCourseBtn.triggerEventHandler('click');
+    addCourseBtnDe.triggerEventHandler('click');
     expect(console.log).toHaveBeenCalledWith('Add course click');
   });
 });

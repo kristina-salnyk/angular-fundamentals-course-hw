@@ -14,6 +14,7 @@ import { LogoComponent } from './shared/components/header/logo/logo.component';
 import { SearchComponent } from './pages/courses/search/search.component';
 import { ButtonComponent } from './shared/components/button/button.component';
 import { InputComponent } from './shared/components/input/input.component';
+import { CourseItemBorderDirective } from './shared/directives/course-item-border.directive';
 
 describe('AppComponent', () => {
   beforeEach(() =>
@@ -31,6 +32,7 @@ describe('AppComponent', () => {
         LogoComponent,
         ButtonComponent,
         InputComponent,
+        CourseItemBorderDirective,
       ],
     })
   );
@@ -52,6 +54,8 @@ describe('AppComponent', () => {
     const app = fixture.componentInstance;
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('span')?.textContent).toBe(app.title);
+    expect(compiled.querySelector('span')?.textContent).toBe(
+      app.title.toUpperCase()
+    );
   });
 });
