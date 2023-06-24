@@ -1,4 +1,6 @@
 import { NgModule } from '@angular/core';
+import { NgForOf } from '@angular/common';
+import { MatIconModule } from '@angular/material/icon';
 
 import { CoursesComponent } from './courses/courses.component';
 import { SearchComponent } from './courses/search/search.component';
@@ -14,6 +16,6 @@ import { SharedModule } from '../shared/shared.module';
     CourseItemComponent,
   ],
   exports: [CoursesComponent],
-  imports: [SharedModule],
+  imports: [SharedModule, NgForOf, MatIconModule],
 })
 export class PagesModule {}

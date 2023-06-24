@@ -1,0 +1,14 @@
+.search {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.search__input {
+  flex-grow: 1;
+
+  @media (min-width: 768px) {
+    max-width: 300px;
+  }
+}

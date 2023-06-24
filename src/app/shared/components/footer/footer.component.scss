@@ -1,0 +1,21 @@
+.footer {
+  position: sticky;
+  bottom: 0;
+  background-color: #303240;
+}
+
+.footer__wrap {
+  padding: 16px 0;
+  display: flex;
+  justify-content: center;
+
+  @media (min-width: 1200px) {
+    justify-content: flex-end;
+  }
+}
+
+.footer__text{
+  padding: 8px 0;
+  text-align: center;
+  color: #ffffff;
+}

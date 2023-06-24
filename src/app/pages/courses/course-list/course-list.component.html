@@ -1,6 +1,9 @@
-<div class="component">
-  <p>The Course List Component</p>
-  <app-course-item></app-course-item>
-  <app-course-item></app-course-item>
-  <app-course-item></app-course-item>
-</div>
+<ul class="course-list">
+  <li *ngFor="let course of courses">
+    <app-course-item
+      [course]="course"
+      (courseEdit)="onEditCourse(course)"
+      (courseDelete)="onDeleteCourse(course)">
+    </app-course-item>
+  </li>
+</ul>

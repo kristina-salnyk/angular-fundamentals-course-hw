@@ -1,1 +1,7 @@
-<p>The Button Component</p>
+<button
+  [class]="['button', className].join(' ')"
+  [type]="type"
+  (click)="onClick()">
+  <mat-icon class="button__icon" *ngIf="icon">{{ icon }}</mat-icon>
+  {{ text }}
+</button>

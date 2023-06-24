@@ -1,5 +1,34 @@
-<div class="component">
-  <p>The Course Item Component</p>
-  <app-button></app-button>
-  <app-button></app-button>
+<div class="course-card">
+  <div class="course-card__wrap">
+    <div class="course-card__header">
+      <h2 class="course-card__title">{{ course.title }}</h2>
+      <div class="course-card__details">
+        <div class="course-card__detail">
+          <mat-icon class="course-card__icon">access_time</mat-icon>
+          {{ formatDurationToString(course.duration) }}
+        </div>
+        <div class="course-card__detail">
+          <mat-icon class="course-card__icon">calendar_today</mat-icon>
+          {{ course.creationDate }}
+        </div>
+      </div>
+    </div>
+    <div class="course-card__content">
+      <p class="course-card__desc">{{ course.description }}</p>
+      <div class="course-card__controls">
+        <app-button
+          [className]="'button--secondary'"
+          [text]="'Edit'"
+          [icon]="'edit'"
+          (buttonClick)="onEditClick()">
+        </app-button>
+        <app-button
+          [className]="'button--secondary'"
+          [text]="'Delete'"
+          [icon]="'delete'"
+          (buttonClick)="onDeleteClick()">
+        </app-button>
+      </div>
+    </div>
+  </div>
 </div>

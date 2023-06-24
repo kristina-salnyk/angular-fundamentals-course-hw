@@ -1,1 +1,7 @@
-<p>The Input Component</p>
+<input
+  class="input"
+  [name]="name"
+  [type]="type"
+  [placeholder]="placeholder"
+  [(ngModel)]="value"
+  (ngModelChange)="onChange()" />

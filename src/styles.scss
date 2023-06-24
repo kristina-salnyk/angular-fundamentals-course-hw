@@ -1,21 +1,64 @@
-/* You can add global styles to this file, and also import other style files */
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use '@angular/material' as mat;
+// Plus imports for other components in your app.
 
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$angular-fundamentals-course-hw-primary: mat.define-palette(
+  mat.$indigo-palette
+);
+$angular-fundamentals-course-hw-accent: mat.define-palette(
+  mat.$pink-palette,
+  A200,
+  A100,
+  A400
+);
+
+// The warn palette is optional (defaults to red).
+$angular-fundamentals-course-hw-warn: mat.define-palette(mat.$red-palette);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$angular-fundamentals-course-hw-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $angular-fundamentals-course-hw-primary,
+      accent: $angular-fundamentals-course-hw-accent,
+      warn: $angular-fundamentals-course-hw-warn,
+    ),
+  )
+);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($angular-fundamentals-course-hw-theme);
+
+/* You can add global styles to this file, and also import other style files */
 * {
   box-sizing: border-box;
 }
 
 body {
   margin: 0;
-  font-family: Noto Sans, "sans-serif";
-  background-color: #f3f3f3;
+  font-family: Poppins, sans-serif;
+  font-size: 14px;
+  background-color: #ebecef;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-  monospace;
-  font-size: 16px;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+  font-size: 14px;
 }
 
 p,
@@ -41,8 +84,20 @@ ul {
   padding: 0;
 }
 
-.component {
-  padding: 20px;
-  margin: 10px;
-  border: 1px solid #000000;
+main {
+  min-height: calc(100vh - 72px - 69px);
+}
+
+.container {
+  margin: 0 auto;
+  padding: 0 16px;
+
+  @media (min-width: 768px) {
+    padding: 0 32px;
+    max-width: 768px;
+  }
+
+  @media (min-width: 1200px) {
+    max-width: 1200px;
+  }
 }
