@@ -5,7 +5,11 @@
 }
 
 .course-card--top-rated {
-  background-color: #f3f6fc;
+  background: linear-gradient(
+    to right,
+      rgba(149, 192, 55, 0.15),
+      rgba(50, 174, 212, 0.15)
+  );
 }
 
 .course-card__wrap {

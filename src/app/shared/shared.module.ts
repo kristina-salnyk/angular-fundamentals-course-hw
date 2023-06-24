@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { NgIf } from '@angular/common';
+import { NgIf, UpperCasePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 
@@ -30,6 +30,6 @@ import { CourseItemBorderDirective } from './directives/course-item-border.direc
     ButtonComponent,
     CourseItemBorderDirective,
   ],
-  imports: [MatIconModule, NgIf, FormsModule],
+  imports: [MatIconModule, NgIf, FormsModule, UpperCasePipe],
 })
 export class SharedModule {}
