@@ -30,6 +30,6 @@ describe('ButtonComponent class-only', () => {
   it('should raise the buttonClick event when onClick method is called', () => {
     spyOn(component.buttonClick, 'emit');
     component.onClick();
-    expect(component.buttonClick.emit).toHaveBeenCalled();
+    expect(component.buttonClick.emit).toHaveBeenCalledWith();
   });
 });
