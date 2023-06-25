@@ -2,6 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterTestingModule } from '@angular/router/testing';
+import { By } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './shared/components/header/header.component';
@@ -15,6 +16,8 @@ import { SearchComponent } from './pages/courses/search/search.component';
 import { ButtonComponent } from './shared/components/button/button.component';
 import { InputComponent } from './shared/components/input/input.component';
 import { CourseItemBorderDirective } from './shared/directives/course-item-border.directive';
+import { DurationPipe } from './shared/pipes/duration.pipe';
+import { OrderByPipe } from './shared/pipes/order-by.pipe';
 
 describe('AppComponent', () => {
   beforeEach(() =>
@@ -33,6 +36,8 @@ describe('AppComponent', () => {
         ButtonComponent,
         InputComponent,
         CourseItemBorderDirective,
+        DurationPipe,
+        OrderByPipe,
       ],
     })
   );
@@ -53,9 +58,12 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
     fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('span')?.textContent).toBe(
-      app.title.toUpperCase()
+
+    const titleDe = fixture.debugElement.query(
+      By.css('[data-testid="app-title"]')
+    );
+    expect(titleDe.nativeElement.textContent.toLowerCase()).toBe(
+      app.title.toLowerCase()
     );
   });
 });

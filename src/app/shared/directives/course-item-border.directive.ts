@@ -6,7 +6,7 @@ import { getDaysBetweenDates } from '../helpers/getDaysBetweenDates';
   selector: '[appCourseItemBorder]',
 })
 export class CourseItemBorderDirective implements OnInit {
-  @Input() creationDate = '';
+  @Input() creationDate = new Date();
   @HostBinding('style.border') border: string;
   @HostBinding('style.borderColor') borderColor: string;
 
@@ -16,17 +16,16 @@ export class CourseItemBorderDirective implements OnInit {
   }
 
   ngOnInit() {
-    const creationDate = new Date(this.creationDate);
     const currentDate = new Date();
 
     if (
-      creationDate < currentDate &&
-      getDaysBetweenDates(creationDate, currentDate) <= 14
+      this.creationDate < currentDate &&
+      getDaysBetweenDates(this.creationDate, currentDate) <= 14
     ) {
       this.borderColor = '#95c037';
       return;
     }
-    if (creationDate > currentDate) {
+    if (this.creationDate > currentDate) {
       this.borderColor = '#32aed4';
     }
   }

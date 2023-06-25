@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { NgClass, NgForOf, NgIf } from '@angular/common';
+import { DatePipe, NgClass, NgForOf, NgIf } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 
 import { CoursesComponent } from './courses/courses.component';
@@ -16,6 +16,6 @@ import { SharedModule } from '../shared/shared.module';
     CourseItemComponent,
   ],
   exports: [CoursesComponent],
-  imports: [SharedModule, NgForOf, MatIconModule, NgIf, NgClass],
+  imports: [SharedModule, NgForOf, MatIconModule, NgIf, NgClass, DatePipe],
 })
 export class PagesModule {}

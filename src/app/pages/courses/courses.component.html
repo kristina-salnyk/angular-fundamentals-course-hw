@@ -1,7 +1,7 @@
 <section class="courses">
   <div class="container">
     <div class="courses__wrap">
-      <app-search></app-search>
+      <app-search (coursesSearch)="onSearchCourses($event)"></app-search>
       <app-button
         class="courses__button--end"
         [className]="'button--secondary'"
@@ -10,9 +10,9 @@
         [dataTestId]="'add-course-button'"
         (buttonClick)="onAddCourseClick()">
       </app-button>
-      <ng-container *ngIf="courses.length > 0; else noData">
+      <ng-container *ngIf="filteredCourses.length > 0; else noData">
         <app-course-list
-          [courses]="courses"
+          [courses]="filteredCourses | orderBy : 'creationDate'"
           (courseEdit)="onEditCourse($event)"
           (courseDelete)="onDeleteCourse($event)">
         </app-course-list>

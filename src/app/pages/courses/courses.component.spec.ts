@@ -1,8 +1,8 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { DebugElement } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
 
 import { CoursesComponent } from './courses.component';
 import { CourseListComponent } from './course-list/course-list.component';
@@ -12,6 +12,9 @@ import { ButtonComponent } from '../../shared/components/button/button.component
 import { InputComponent } from '../../shared/components/input/input.component';
 import { Course } from '../../core/models/Course.model';
 import { CourseItemBorderDirective } from '../../shared/directives/course-item-border.directive';
+import { DurationPipe } from '../../shared/pipes/duration.pipe';
+import { OrderByPipe } from '../../shared/pipes/order-by.pipe';
+import { FilterPipe } from '../../shared/pipes/filter.pipe';
 
 describe('CoursesComponent', () => {
   let component: CoursesComponent;
@@ -27,6 +30,8 @@ describe('CoursesComponent', () => {
         ButtonComponent,
         InputComponent,
         CourseItemBorderDirective,
+        DurationPipe,
+        OrderByPipe,
       ],
       imports: [MatIconModule, FormsModule],
     });
@@ -45,7 +50,7 @@ describe('CoursesComponent class-only', () => {
   let course: Course;
 
   beforeEach(() => {
-    component = new CoursesComponent();
+    component = new CoursesComponent(new FilterPipe());
 
     course = {
       id: '1',
@@ -53,7 +58,7 @@ describe('CoursesComponent class-only', () => {
       description:
         "Learn about where you can find course descriptions, what information they include, how they work, and details about various components of a course description. Course descriptions report information about a university or college's classes. They're published both in course catalogs that outline degree requirements and in course schedules that contain descriptions for all courses offered during a particular semester.",
       duration: 88,
-      creationDate: '06/21/2023',
+      creationDate: new Date('06/21/2023'),
       topRated: false,
     };
   });
@@ -96,6 +101,8 @@ describe('CoursesComponent stand-alone', () => {
         ButtonComponent,
         InputComponent,
         CourseItemBorderDirective,
+        DurationPipe,
+        OrderByPipe,
       ],
       imports: [MatIconModule, FormsModule],
     }).compileComponents();

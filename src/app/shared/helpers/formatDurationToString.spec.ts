@@ -1,4 +1,4 @@
-import { formatDurationToString } from '../formatDurationToString';
+import { formatDurationToString } from './formatDurationToString';
 
 describe('formatDurationToString', () => {
   it('should return the correct formatted duration for positive integer values', () => {

@@ -10,6 +10,9 @@ import { LocationComponent } from './components/location/location.component';
 import { ButtonComponent } from './components/button/button.component';
 import { InputComponent } from './components/input/input.component';
 import { CourseItemBorderDirective } from './directives/course-item-border.directive';
+import { DurationPipe } from './pipes/duration.pipe';
+import { OrderByPipe } from './pipes/order-by.pipe';
+import { FilterPipe } from './pipes/filter.pipe';
 
 @NgModule({
   declarations: [
@@ -20,6 +23,9 @@ import { CourseItemBorderDirective } from './directives/course-item-border.direc
     ButtonComponent,
     InputComponent,
     CourseItemBorderDirective,
+    DurationPipe,
+    OrderByPipe,
+    FilterPipe,
   ],
   exports: [
     HeaderComponent,
@@ -29,6 +35,8 @@ import { CourseItemBorderDirective } from './directives/course-item-border.direc
     InputComponent,
     ButtonComponent,
     CourseItemBorderDirective,
+    DurationPipe,
+    OrderByPipe,
   ],
   imports: [MatIconModule, NgIf, FormsModule, UpperCasePipe],
 })

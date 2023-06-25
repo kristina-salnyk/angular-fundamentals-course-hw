@@ -1,12 +1,14 @@
+import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MatIconModule } from '@angular/material/icon';
-import { Component, DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
+import { DatePipe } from '@angular/common';
 
 import { CourseItemComponent } from './course-item.component';
 import { ButtonComponent } from '../../../../shared/components/button/button.component';
 import { Course } from '../../../../core/models/Course.model';
 import { CourseItemBorderDirective } from '../../../../shared/directives/course-item-border.directive';
+import { DurationPipe } from '../../../../shared/pipes/duration.pipe';
 
 @Component({
   selector: 'app-host-component',
@@ -25,7 +27,7 @@ class TestHostComponent {
     description:
       "Learn about where you can find course descriptions, what information they include, how they work, and details about various components of a course description. Course descriptions report information about a university or college's classes. They're published both in course catalogs that outline degree requirements and in course schedules that contain descriptions for all courses offered during a particular semester.",
     duration: 88,
-    creationDate: '06/21/2023',
+    creationDate: new Date('06/21/2023'),
     topRated: false,
   };
   courseEdit!: Course;
@@ -49,6 +51,7 @@ describe('CourseItemComponent', () => {
         CourseItemComponent,
         ButtonComponent,
         CourseItemBorderDirective,
+        DurationPipe,
       ],
       imports: [MatIconModule],
     });
@@ -87,7 +90,8 @@ describe('CourseItemComponent stand-alone', () => {
   let fixture: ComponentFixture<CourseItemComponent>;
   let courseDe: DebugElement;
   let course: Course;
-  let courseItemComponentSpy: jasmine.SpyObj<CourseItemComponent>;
+  let durationPipeSpy: jasmine.Spy;
+  let datePipeSpy: jasmine.Spy;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
@@ -95,6 +99,7 @@ describe('CourseItemComponent stand-alone', () => {
         CourseItemComponent,
         ButtonComponent,
         CourseItemBorderDirective,
+        DurationPipe,
       ],
       imports: [MatIconModule],
     }).compileComponents();
@@ -103,7 +108,6 @@ describe('CourseItemComponent stand-alone', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(CourseItemComponent);
     component = fixture.componentInstance;
-
     courseDe = fixture.debugElement.query(By.css('.course-card'));
 
     course = {
@@ -112,19 +116,19 @@ describe('CourseItemComponent stand-alone', () => {
       description:
         "Learn about where you can find course descriptions, what information they include, how they work, and details about various components of a course description. Course descriptions report information about a university or college's classes. They're published both in course catalogs that outline degree requirements and in course schedules that contain descriptions for all courses offered during a particular semester.",
       duration: 88,
-      creationDate: '06/21/2023',
+      creationDate: new Date('06/21/2023'),
       topRated: false,
     };
 
     component.course = course;
 
-    courseItemComponentSpy = jasmine.createSpyObj('formatDurationToString', [
-      'formatDurationToString',
-    ]);
-    courseItemComponentSpy.formatDurationToString.and.returnValue('1h 28 min');
+    durationPipeSpy = spyOn(
+      DurationPipe.prototype,
+      'transform'
+    ).and.returnValue('1h 28 min');
 
-    spyOn(component, 'formatDurationToString').and.returnValue(
-      courseItemComponentSpy.formatDurationToString(0)
+    datePipeSpy = spyOn(DatePipe.prototype, 'transform').and.returnValue(
+      '21 Jun, 2023'
     );
 
     fixture.detectChanges();
@@ -146,16 +150,23 @@ describe('CourseItemComponent stand-alone', () => {
     const durationDe = courseDe.query(
       By.css('[data-testid="course-duration"]')
     );
+    expect(durationPipeSpy).toHaveBeenCalledWith(course.duration);
     expect(durationDe.nativeElement.textContent).toBe(
-      courseItemComponentSpy.formatDurationToString(course.duration)
+      durationPipeSpy(course.duration)
     );
   });
 
-  it('should display course creation date', () => {
+  it('should display course creation date in the correct format', () => {
     const creationDateDe = courseDe.query(
       By.css('[data-testid="course-creation-date"]')
     );
-    expect(creationDateDe.nativeElement.textContent).toBe(course.creationDate);
+    expect(datePipeSpy).toHaveBeenCalledWith(
+      course.creationDate,
+      'd MMM, YYYY'
+    );
+    expect(creationDateDe.nativeElement.textContent).toBe(
+      datePipeSpy(course.creationDate)
+    );
   });
 
   it("should raise courseEdit event when 'Edit' button is clicked", () => {
@@ -181,7 +192,8 @@ describe('CourseItemComponent test-host', () => {
   let testHost: TestHostComponent;
   let fixture: ComponentFixture<TestHostComponent>;
   let courseDe: DebugElement;
-  let component: CourseItemComponent;
+  let durationPipeSpy: jasmine.Spy;
+  let datePipeSpy: jasmine.Spy;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
@@ -190,6 +202,7 @@ describe('CourseItemComponent test-host', () => {
         ButtonComponent,
         CourseItemBorderDirective,
         TestHostComponent,
+        DurationPipe,
       ],
       imports: [MatIconModule],
     }).compileComponents();
@@ -200,8 +213,14 @@ describe('CourseItemComponent test-host', () => {
     testHost = fixture.componentInstance;
     courseDe = fixture.debugElement.query(By.css('.course-card'));
 
-    component = courseDe.injector.get(CourseItemComponent);
-    spyOn(component, 'formatDurationToString').and.returnValue('1h 28 min');
+    durationPipeSpy = spyOn(
+      DurationPipe.prototype,
+      'transform'
+    ).and.returnValue('1h 28 min');
+
+    datePipeSpy = spyOn(DatePipe.prototype, 'transform').and.returnValue(
+      '21 Jun, 2023'
+    );
 
     fixture.detectChanges();
   });
@@ -224,18 +243,22 @@ describe('CourseItemComponent test-host', () => {
     const durationDe = courseDe.query(
       By.css('[data-testid="course-duration"]')
     );
-    expect(component.formatDurationToString).toHaveBeenCalledWith(
-      testHost.course.duration
+    expect(durationPipeSpy).toHaveBeenCalledWith(testHost.course.duration);
+    expect(durationDe.nativeElement.textContent).toBe(
+      durationPipeSpy(testHost.course.duration)
     );
-    expect(durationDe.nativeElement.textContent).toBe('1h 28 min');
   });
 
-  it('should display course creation date', () => {
+  it('should display course creation date in the correct format', () => {
     const creationDateDe = courseDe.query(
       By.css('[data-testid="course-creation-date"]')
     );
+    expect(datePipeSpy).toHaveBeenCalledWith(
+      testHost.course.creationDate,
+      'd MMM, YYYY'
+    );
     expect(creationDateDe.nativeElement.textContent).toBe(
-      testHost.course.creationDate
+      datePipeSpy(testHost.course.creationDate)
     );
   });
 

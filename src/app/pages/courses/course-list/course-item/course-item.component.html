@@ -15,13 +15,13 @@
         <div class="course-card__detail">
           <mat-icon class="course-card__icon">access_time</mat-icon>
           <span data-testid="course-duration">{{
-            formatDurationToString(course.duration)
+            course.duration | duration
           }}</span>
         </div>
         <div class="course-card__detail">
           <mat-icon class="course-card__icon">calendar_today</mat-icon>
           <span data-testid="course-creation-date">{{
-            course.creationDate
+            course.creationDate | date : 'd MMM, YYYY'
           }}</span>
         </div>
       </div>
