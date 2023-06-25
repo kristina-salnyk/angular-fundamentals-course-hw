@@ -44,6 +44,8 @@ class TestHostComponent {
 describe('CourseItemComponent', () => {
   let component: CourseItemComponent;
   let fixture: ComponentFixture<CourseItemComponent>;
+  let courseDe: DebugElement;
+  let course: Course;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -57,11 +59,32 @@ describe('CourseItemComponent', () => {
     });
     fixture = TestBed.createComponent(CourseItemComponent);
     component = fixture.componentInstance;
+    courseDe = fixture.debugElement.query(By.css('.course-card'));
+
+    course = {
+      id: '1',
+      title: 'Video Course 1. Name tag',
+      description:
+        "Learn about where you can find course descriptions, what information they include, how they work, and details about various components of a course description. Course descriptions report information about a university or college's classes. They're published both in course catalogs that outline degree requirements and in course schedules that contain descriptions for all courses offered during a particular semester.",
+      duration: 88,
+      creationDate: new Date('06/21/2023'),
+      topRated: false,
+    };
+
+    component.course = course;
+
     fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should convert duration to the correct format', () => {
+    const durationDe = courseDe.query(
+      By.css('[data-testid="course-duration"]')
+    );
+    expect(durationDe.nativeElement.textContent).toBe('1h 28 min');
   });
 });
 
