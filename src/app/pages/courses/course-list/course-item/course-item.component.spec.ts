@@ -59,6 +59,7 @@ describe('CourseItemComponent', () => {
     });
     fixture = TestBed.createComponent(CourseItemComponent);
     component = fixture.componentInstance;
+
     courseDe = fixture.debugElement.query(By.css('.course-card'));
 
     course = {
@@ -131,6 +132,7 @@ describe('CourseItemComponent stand-alone', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(CourseItemComponent);
     component = fixture.componentInstance;
+
     courseDe = fixture.debugElement.query(By.css('.course-card'));
 
     course = {
@@ -234,6 +236,7 @@ describe('CourseItemComponent test-host', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(TestHostComponent);
     testHost = fixture.componentInstance;
+
     courseDe = fixture.debugElement.query(By.css('.course-card'));
 
     durationPipeSpy = spyOn(

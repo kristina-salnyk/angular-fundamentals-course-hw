@@ -19,6 +19,7 @@ import { FilterPipe } from '../../shared/pipes/filter.pipe';
 describe('CoursesComponent', () => {
   let component: CoursesComponent;
   let fixture: ComponentFixture<CoursesComponent>;
+  let courses: Course[];
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -37,20 +38,73 @@ describe('CoursesComponent', () => {
     });
     fixture = TestBed.createComponent(CoursesComponent);
     component = fixture.componentInstance;
+
+    courses = [
+      {
+        id: '1',
+        title: 'Video Course 1. Name tag',
+        description:
+          "Learn about where you can find course descriptions, what information they include, how they work, and details about various components of a course description. Course descriptions report information about a university or college's classes. They're published both in course catalogs that outline degree requirements and in course schedules that contain descriptions for all courses offered during a particular semester.",
+        duration: 88,
+        creationDate: new Date('06/21/2023'),
+        topRated: true,
+      },
+      {
+        id: '2',
+        title: 'Video Course 2. Name tag',
+        description:
+          "Learn about where you can find course descriptions, what information they include, how they work, and details about various components of a course description. Course descriptions report information about a university or college's classes. They're published both in course catalogs that outline degree requirements and in course schedules that contain descriptions for all courses offered during a particular semester.",
+        duration: 48,
+        creationDate: new Date('05/22/2023'),
+        topRated: true,
+      },
+      {
+        id: '3',
+        title: 'Video Course 3. Name tag',
+        description:
+          "Learn about where you can find course descriptions, what information they include, how they work, and details about various components of a course description. Course descriptions report information about a university or college's classes. They're published both in course catalogs that outline degree requirements and in course schedules that contain descriptions for all courses offered during a particular semester.",
+        duration: 88,
+        creationDate: new Date('08/22/2023'),
+        topRated: false,
+      },
+    ];
+
+    component.courses = courses;
+
     fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should filter courses by title', () => {
+    const searchQuery = 'Video Course 1';
+    const searchedCourses: Course[] = [
+      {
+        id: '1',
+        title: 'Video Course 1. Name tag',
+        description:
+          "Learn about where you can find course descriptions, what information they include, how they work, and details about various components of a course description. Course descriptions report information about a university or college's classes. They're published both in course catalogs that outline degree requirements and in course schedules that contain descriptions for all courses offered during a particular semester.",
+        duration: 88,
+        creationDate: new Date('06/21/2023'),
+        topRated: true,
+      },
+    ];
+
+    component.onSearchCourses(searchQuery);
+    expect(component.filteredCourses).toEqual(searchedCourses);
+  });
 });
 
 describe('CoursesComponent class-only', () => {
   let component: CoursesComponent;
+  let filterPipe: FilterPipe;
   let course: Course;
 
   beforeEach(() => {
-    component = new CoursesComponent(new FilterPipe());
+    filterPipe = new FilterPipe();
+    component = new CoursesComponent(filterPipe);
 
     course = {
       id: '1',
@@ -61,6 +115,21 @@ describe('CoursesComponent class-only', () => {
       creationDate: new Date('06/21/2023'),
       topRated: false,
     };
+  });
+
+  it('should update filteredCourses when onSearchCourses is called', () => {
+    const searchQuery = 'Video Course 1';
+    const searchedCourses = [course];
+
+    spyOn(filterPipe, 'transform').and.returnValue(searchedCourses);
+
+    component.onSearchCourses(searchQuery);
+    expect(filterPipe.transform).toHaveBeenCalledWith(
+      component.courses,
+      'title',
+      searchQuery
+    );
+    expect(component.filteredCourses).toEqual(searchedCourses);
   });
 
   it("should log 'Edit click on [id]' message when onEditCourse method is called", () => {
