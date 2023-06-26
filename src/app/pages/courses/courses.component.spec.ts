@@ -35,9 +35,11 @@ describe('CoursesComponent', () => {
         OrderByPipe,
       ],
       imports: [MatIconModule, FormsModule],
+      providers: [OrderByPipe],
     });
     fixture = TestBed.createComponent(CoursesComponent);
     component = fixture.componentInstance;
+    fixture.detectChanges();
 
     courses = [
       {
@@ -63,13 +65,23 @@ describe('CoursesComponent', () => {
         title: 'Video Course 3. Name tag',
         description:
           "Learn about where you can find course descriptions, what information they include, how they work, and details about various components of a course description. Course descriptions report information about a university or college's classes. They're published both in course catalogs that outline degree requirements and in course schedules that contain descriptions for all courses offered during a particular semester.",
-        duration: 88,
-        creationDate: new Date('08/22/2023'),
-        topRated: false,
+        duration: 48,
+        creationDate: new Date('08/23/2023'),
+        topRated: true,
+      },
+      {
+        id: '4',
+        title: 'Video Course 4. Name tag',
+        description:
+          "Learn about where you can find course descriptions, what information they include, how they work, and details about various components of a course description. Course descriptions report information about a university or college's classes. They're published both in course catalogs that outline degree requirements and in course schedules that contain descriptions for all courses offered during a particular semester.",
+        duration: 48,
+        creationDate: new Date('01/23/2023'),
+        topRated: true,
       },
     ];
 
     component.courses = courses;
+    component.filteredCourses = courses;
 
     fixture.detectChanges();
   });
@@ -78,16 +90,34 @@ describe('CoursesComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  it('should order courses by creation date', () => {
+    const coursesDe = fixture.debugElement.queryAll(By.css('[data-courseId]'));
+
+    expect(coursesDe.length).toBe(courses.length);
+    expect(coursesDe[0].nativeElement.getAttribute('data-courseId')).toBe(
+      courses[2].id
+    );
+    expect(coursesDe[1].nativeElement.getAttribute('data-courseId')).toBe(
+      courses[0].id
+    );
+    expect(coursesDe[2].nativeElement.getAttribute('data-courseId')).toBe(
+      courses[1].id
+    );
+    expect(coursesDe[3].nativeElement.getAttribute('data-courseId')).toBe(
+      courses[3].id
+    );
+  });
+
   it('should filter courses by title', () => {
-    const searchQuery = 'Video Course 1';
+    const searchQuery = 'Video Course 4';
     const searchedCourses: Course[] = [
       {
-        id: '1',
-        title: 'Video Course 1. Name tag',
+        id: '4',
+        title: 'Video Course 4. Name tag',
         description:
           "Learn about where you can find course descriptions, what information they include, how they work, and details about various components of a course description. Course descriptions report information about a university or college's classes. They're published both in course catalogs that outline degree requirements and in course schedules that contain descriptions for all courses offered during a particular semester.",
-        duration: 88,
-        creationDate: new Date('06/21/2023'),
+        duration: 48,
+        creationDate: new Date('01/23/2023'),
         topRated: true,
       },
     ];
@@ -189,7 +219,6 @@ describe('CoursesComponent stand-alone', () => {
     const loadMoreBtnDe = coursesDe.query(
       By.css('[data-testid="load-more-button"]')
     );
-
     loadMoreBtnDe.triggerEventHandler('click');
     expect(console.log).toHaveBeenCalledWith('Load more click');
   });
@@ -200,7 +229,6 @@ describe('CoursesComponent stand-alone', () => {
     const addCourseBtnDe = coursesDe.query(
       By.css('[data-testid="add-course-button"]')
     );
-
     addCourseBtnDe.triggerEventHandler('click');
     expect(console.log).toHaveBeenCalledWith('Add course click');
   });

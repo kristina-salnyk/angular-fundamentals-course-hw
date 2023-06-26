@@ -1,7 +1,11 @@
 import { DurationPipe } from './duration.pipe';
 
 describe('DurationPipe', () => {
-  const pipe = new DurationPipe();
+  let pipe: DurationPipe;
+
+  beforeEach(() => {
+    pipe = new DurationPipe();
+  });
 
   it('create an instance', () => {
     expect(pipe).toBeTruthy();

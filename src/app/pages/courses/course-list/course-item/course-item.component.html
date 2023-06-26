@@ -2,7 +2,8 @@
   class="course-card"
   appCourseItemBorder
   [creationDate]="course.creationDate"
-  [ngClass]="{ 'course-card--top-rated': course.topRated }">
+  [ngClass]="{ 'course-card--top-rated': course.topRated }"
+  [attr.data-courseId]="course.id">
   <div class="course-card__wrap">
     <div class="course-card__header">
       <h2 class="course-card__title">

@@ -22,11 +22,11 @@ export class CourseItemBorderDirective implements OnInit {
       this.creationDate < currentDate &&
       getDaysBetweenDates(this.creationDate, currentDate) <= 14
     ) {
-      this.borderColor = '#95c037';
+      this.borderColor = 'rgb(149, 192, 55)';
       return;
     }
     if (this.creationDate > currentDate) {
-      this.borderColor = '#32aed4';
+      this.borderColor = 'rgb(50, 174, 212)';
     }
   }
 }

@@ -1,8 +1,8 @@
 import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { DatePipe } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { By } from '@angular/platform-browser';
-import { DatePipe } from '@angular/common';
 
 import { CourseItemComponent } from './course-item.component';
 import { ButtonComponent } from '../../../../shared/components/button/button.component';
@@ -69,16 +69,22 @@ describe('CourseItemComponent', () => {
         "Learn about where you can find course descriptions, what information they include, how they work, and details about various components of a course description. Course descriptions report information about a university or college's classes. They're published both in course catalogs that outline degree requirements and in course schedules that contain descriptions for all courses offered during a particular semester.",
       duration: 88,
       creationDate: new Date('06/21/2023'),
-      topRated: false,
+      topRated: true,
     };
 
     component.course = course;
+
+    jasmine.clock().mockDate(new Date('06/17/2023'));
 
     fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should set course card border color to rgb(50, 174, 212)', () => {
+    expect(courseDe.nativeElement.style.borderColor).toBe('rgb(50, 174, 212)');
   });
 
   it('should convert duration to the correct format', () => {
@@ -198,7 +204,6 @@ describe('CourseItemComponent stand-alone', () => {
     spyOn(component.courseEdit, 'emit');
 
     const editBtnDe = courseDe.query(By.css('[data-testid="edit-button"]'));
-
     editBtnDe.triggerEventHandler('click');
     expect(component.courseEdit.emit).toHaveBeenCalledWith();
   });
@@ -207,7 +212,6 @@ describe('CourseItemComponent stand-alone', () => {
     spyOn(component.courseDelete, 'emit');
 
     const deleteBtnDe = courseDe.query(By.css('[data-testid="delete-button"]'));
-
     deleteBtnDe.triggerEventHandler('click');
     expect(component.courseDelete.emit).toHaveBeenCalledWith();
   });
@@ -290,14 +294,12 @@ describe('CourseItemComponent test-host', () => {
 
   it("should raise courseEdit event when 'Edit' button is clicked", () => {
     const editBtnDe = courseDe.query(By.css('[data-testid="edit-button"]'));
-
     editBtnDe.triggerEventHandler('click');
     expect(testHost.courseEdit).toBe(testHost.course);
   });
 
   it("should raise courseDelete event when 'Delete' button is clicked", () => {
     const deleteBtnDe = courseDe.query(By.css('[data-testid="delete-button"]'));
-
     deleteBtnDe.triggerEventHandler('click');
     expect(testHost.courseDelete).toBe(testHost.course);
   });

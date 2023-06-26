@@ -46,7 +46,7 @@ export class CoursesComponent implements OnInit {
       },
     ];
 
-    this.filteredCourses = [...this.courses];
+    this.filteredCourses = this.courses;
   }
 
   onSearchCourses(searchQuery: string) {
