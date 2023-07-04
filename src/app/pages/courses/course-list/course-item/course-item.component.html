@@ -7,7 +7,7 @@
   <div class="course-card__wrap">
     <div class="course-card__header">
       <h2 class="course-card__title">
-        <span data-testid="course-title">{{ course.title }}</span
+        <span data-testid="course-title">{{ course.title | uppercase }}</span
         ><mat-icon *ngIf="course.topRated" class="course-card__label"
           >star</mat-icon
         >

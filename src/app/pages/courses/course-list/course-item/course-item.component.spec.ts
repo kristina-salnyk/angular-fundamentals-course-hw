@@ -1,6 +1,6 @@
 import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { DatePipe } from '@angular/common';
+import { DatePipe, UpperCasePipe } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { By } from '@angular/platform-browser';
 
@@ -122,6 +122,7 @@ describe('CourseItemComponent stand-alone', () => {
   let course: Course;
   let durationPipeSpy: jasmine.Spy;
   let datePipeSpy: jasmine.Spy;
+  let upperCasePipeSpy: jasmine.Spy;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
@@ -162,22 +163,30 @@ describe('CourseItemComponent stand-alone', () => {
       '21 Jun, 2023'
     );
 
+    upperCasePipeSpy = spyOn(
+      UpperCasePipe.prototype,
+      'transform'
+    ).and.returnValue('VIDEO COURSE 1. NAME TAG');
+
     fixture.detectChanges();
   });
 
-  it('should display course title', () => {
+  it('should display the course title in uppercase', () => {
     const titleDe = courseDe.query(By.css('[data-testid="course-title"]'));
-    expect(titleDe.nativeElement.textContent).toBe(course.title);
+    expect(upperCasePipeSpy).toHaveBeenCalledWith(course.title);
+    expect(titleDe.nativeElement.textContent).toBe(
+      upperCasePipeSpy(course.title)
+    );
   });
 
-  it('should display course description', () => {
+  it('should display the course description', () => {
     const descriptionDe = courseDe.query(
       By.css('[data-testid="course-description"]')
     );
     expect(descriptionDe.nativeElement.textContent).toBe(course.description);
   });
 
-  it('should display course duration in the correct format', () => {
+  it('should display the course duration in the correct format', () => {
     const durationDe = courseDe.query(
       By.css('[data-testid="course-duration"]')
     );
@@ -187,7 +196,7 @@ describe('CourseItemComponent stand-alone', () => {
     );
   });
 
-  it('should display course creation date in the correct format', () => {
+  it('should display the course creation date in the correct format', () => {
     const creationDateDe = courseDe.query(
       By.css('[data-testid="course-creation-date"]')
     );
@@ -200,7 +209,7 @@ describe('CourseItemComponent stand-alone', () => {
     );
   });
 
-  it("should raise courseEdit event when 'Edit' button is clicked", () => {
+  it("should raise the courseEdit event when 'Edit' button is clicked", () => {
     spyOn(component.courseEdit, 'emit');
 
     const editBtnDe = courseDe.query(By.css('[data-testid="edit-button"]'));
@@ -208,7 +217,7 @@ describe('CourseItemComponent stand-alone', () => {
     expect(component.courseEdit.emit).toHaveBeenCalledWith();
   });
 
-  it("should raise courseDelete event when 'Delete' button is clicked", () => {
+  it("should raise the courseDelete event when 'Delete' button is clicked", () => {
     spyOn(component.courseDelete, 'emit');
 
     const deleteBtnDe = courseDe.query(By.css('[data-testid="delete-button"]'));
@@ -223,6 +232,7 @@ describe('CourseItemComponent test-host', () => {
   let courseDe: DebugElement;
   let durationPipeSpy: jasmine.Spy;
   let datePipeSpy: jasmine.Spy;
+  let upperCasePipeSpy: jasmine.Spy;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
@@ -252,15 +262,23 @@ describe('CourseItemComponent test-host', () => {
       '21 Jun, 2023'
     );
 
+    upperCasePipeSpy = spyOn(
+      UpperCasePipe.prototype,
+      'transform'
+    ).and.returnValue('VIDEO COURSE 1. NAME TAG');
+
     fixture.detectChanges();
   });
 
-  it('should display course title', () => {
+  it('should display the course title in uppercase', () => {
     const titleDe = courseDe.query(By.css('[data-testid="course-title"]'));
-    expect(titleDe.nativeElement.textContent).toBe(testHost.course.title);
+    expect(upperCasePipeSpy).toHaveBeenCalledWith(testHost.course.title);
+    expect(titleDe.nativeElement.textContent).toBe(
+      upperCasePipeSpy(testHost.course.title)
+    );
   });
 
-  it('should display course description', () => {
+  it('should display the course description', () => {
     const descriptionDe = courseDe.query(
       By.css('[data-testid="course-description"]')
     );
@@ -269,7 +287,7 @@ describe('CourseItemComponent test-host', () => {
     );
   });
 
-  it('should display course duration in the correct format', () => {
+  it('should display the course duration in the correct format', () => {
     const durationDe = courseDe.query(
       By.css('[data-testid="course-duration"]')
     );
@@ -279,7 +297,7 @@ describe('CourseItemComponent test-host', () => {
     );
   });
 
-  it('should display course creation date in the correct format', () => {
+  it('should display the course creation date in the correct format', () => {
     const creationDateDe = courseDe.query(
       By.css('[data-testid="course-creation-date"]')
     );
@@ -292,13 +310,13 @@ describe('CourseItemComponent test-host', () => {
     );
   });
 
-  it("should raise courseEdit event when 'Edit' button is clicked", () => {
+  it("should raise the courseEdit event when 'Edit' button is clicked", () => {
     const editBtnDe = courseDe.query(By.css('[data-testid="edit-button"]'));
     editBtnDe.triggerEventHandler('click');
     expect(testHost.courseEdit).toBe(testHost.course);
   });
 
-  it("should raise courseDelete event when 'Delete' button is clicked", () => {
+  it("should raise the courseDelete event when 'Delete' button is clicked", () => {
     const deleteBtnDe = courseDe.query(By.css('[data-testid="delete-button"]'));
     deleteBtnDe.triggerEventHandler('click');
     expect(testHost.courseDelete).toBe(testHost.course);
