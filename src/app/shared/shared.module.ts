@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { NgIf } from '@angular/common';
+import { NgIf, UpperCasePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 
@@ -9,6 +9,10 @@ import { LogoComponent } from './components/header/logo/logo.component';
 import { LocationComponent } from './components/location/location.component';
 import { ButtonComponent } from './components/button/button.component';
 import { InputComponent } from './components/input/input.component';
+import { CourseItemBorderDirective } from './directives/course-item-border.directive';
+import { DurationPipe } from './pipes/duration.pipe';
+import { OrderByPipe } from './pipes/order-by.pipe';
+import { FilterPipe } from './pipes/filter.pipe';
 
 @NgModule({
   declarations: [
@@ -18,6 +22,10 @@ import { InputComponent } from './components/input/input.component';
     LocationComponent,
     ButtonComponent,
     InputComponent,
+    CourseItemBorderDirective,
+    DurationPipe,
+    OrderByPipe,
+    FilterPipe,
   ],
   exports: [
     HeaderComponent,
@@ -26,7 +34,10 @@ import { InputComponent } from './components/input/input.component';
     FooterComponent,
     InputComponent,
     ButtonComponent,
+    CourseItemBorderDirective,
+    DurationPipe,
+    OrderByPipe,
   ],
-  imports: [MatIconModule, NgIf, FormsModule],
+  imports: [MatIconModule, NgIf, FormsModule, UpperCasePipe],
 })
 export class SharedModule {}

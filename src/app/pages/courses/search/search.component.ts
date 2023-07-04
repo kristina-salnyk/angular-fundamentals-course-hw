@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-search',
@@ -7,9 +7,10 @@ import { Component } from '@angular/core';
 })
 export class SearchComponent {
   searchQuery = '';
+  @Output() coursesSearch = new EventEmitter<string>();
 
   onSubmit(event: Event) {
     event.preventDefault();
-    console.log(this.searchQuery);
+    this.coursesSearch.emit(this.searchQuery);
   }
 }

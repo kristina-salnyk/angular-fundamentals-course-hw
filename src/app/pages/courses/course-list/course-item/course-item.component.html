@@ -1,20 +1,28 @@
-<div class="course-card">
+<div
+  class="course-card"
+  appCourseItemBorder
+  [creationDate]="course.creationDate"
+  [ngClass]="{ 'course-card--top-rated': course.topRated }"
+  [attr.data-courseId]="course.id">
   <div class="course-card__wrap">
     <div class="course-card__header">
       <h2 class="course-card__title">
-        <span data-testid="course-title">{{ course.title }}</span>
+        <span data-testid="course-title">{{ course.title | uppercase }}</span
+        ><mat-icon *ngIf="course.topRated" class="course-card__label"
+          >star</mat-icon
+        >
       </h2>
       <div class="course-card__details">
         <div class="course-card__detail">
           <mat-icon class="course-card__icon">access_time</mat-icon>
           <span data-testid="course-duration">{{
-            formatDurationToString(course.duration)
+            course.duration | duration
           }}</span>
         </div>
         <div class="course-card__detail">
           <mat-icon class="course-card__icon">calendar_today</mat-icon>
           <span data-testid="course-creation-date">{{
-            course.creationDate
+            course.creationDate | date : 'd MMM, YYYY'
           }}</span>
         </div>
       </div>

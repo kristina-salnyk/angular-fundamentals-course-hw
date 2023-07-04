@@ -1,22 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-
+import { FilterPipe } from './filter.pipe';
 import { Course } from '../../core/models/Course.model';
-import { FilterPipe } from '../../shared/pipes/filter.pipe';
 
-@Component({
-  selector: 'app-courses',
-  templateUrl: './courses.component.html',
-  styleUrls: ['./courses.component.scss'],
-  providers: [FilterPipe],
-})
-export class CoursesComponent implements OnInit {
-  courses: Course[] = [];
-  filteredCourses: Course[] = [];
+describe('FilterPipe', () => {
+  let pipe: FilterPipe;
+  let courses: Course[];
 
-  constructor(private filterPipe: FilterPipe) {}
-
-  ngOnInit() {
-    this.courses = [
+  beforeEach(() => {
+    pipe = new FilterPipe();
+    courses = [
       {
         id: '1',
         title: 'Video Course 1. Name tag',
@@ -45,31 +36,52 @@ export class CoursesComponent implements OnInit {
         topRated: false,
       },
     ];
+  });
 
-    this.filteredCourses = this.courses;
-  }
+  it('create an instance', () => {
+    expect(pipe).toBeTruthy();
+  });
 
-  onSearchCourses(searchQuery: string) {
-    this.filteredCourses = this.filterPipe.transform(
-      this.courses,
+  it('should filter courses by id', () => {
+    const filteredCourses = pipe.transform(courses, 'id', '2');
+
+    expect(filteredCourses.length).toBe(1);
+    expect(filteredCourses).toEqual([courses[1]]);
+  });
+
+  it('should filter courses by title', () => {
+    const filteredCourses = pipe.transform(
+      courses,
       'title',
-      searchQuery
+      'Video Course 3. Name tag'
     );
-  }
 
-  onLoadMoreClick() {
-    console.log('Load more click');
-  }
+    expect(filteredCourses.length).toBe(1);
+    expect(filteredCourses).toEqual([courses[2]]);
+  });
 
-  onAddCourseClick() {
-    console.log('Add course click');
-  }
+  it('should filter courses by description', () => {
+    const filteredCourses = pipe.transform(
+      courses,
+      'description',
+      'course catalogs'
+    );
 
-  onEditCourse(course: Course) {
-    console.log('Edit click on ' + course.id);
-  }
+    expect(filteredCourses.length).toBe(3);
+    expect(filteredCourses).toEqual(courses);
+  });
 
-  onDeleteCourse(course: Course) {
-    console.log('Delete click on ' + course.id);
-  }
-}
+  it('should return an empty array when no match is found', () => {
+    const filteredCourses = pipe.transform(courses, 'title', 'Video Course 10');
+
+    expect(filteredCourses.length).toBe(0);
+    expect(filteredCourses).toEqual([]);
+  });
+
+  it('should return the original array when filter is an empty string', () => {
+    const filteredCourses = pipe.transform(courses, 'title', '');
+
+    expect(filteredCourses.length).toBe(courses.length);
+    expect(filteredCourses).toEqual(courses);
+  });
+});

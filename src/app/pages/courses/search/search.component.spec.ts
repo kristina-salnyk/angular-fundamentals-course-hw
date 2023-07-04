@@ -31,11 +31,13 @@ describe('SearchComponent class-only', () => {
     component = new SearchComponent();
   });
 
-  it('should log the current search query when onSubmit method is called', () => {
+  it('should raise coursesSearch event with the current search query when onSubmit method is called', () => {
     component.searchQuery = 'Name tag';
 
-    spyOn(console, 'log');
+    spyOn(component.coursesSearch, 'emit');
     component.onSubmit(new Event('submit'));
-    expect(console.log).toHaveBeenCalledWith(component.searchQuery);
+    expect(component.coursesSearch.emit).toHaveBeenCalledWith(
+      component.searchQuery
+    );
   });
 });

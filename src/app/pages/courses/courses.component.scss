@@ -5,10 +5,23 @@
   gap: 16px;
 }
 
-.courses__button--end{
+.courses__info {
+  padding: 32px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.courses__text {
+  font-size: 18px;
+  text-align: center;
+}
+
+.courses__button--end {
   align-self: flex-end;
 }
 
-.courses__button--center{
+.courses__button--center {
   align-self: center;
 }

@@ -1,7 +1,7 @@
 <section class="courses">
   <div class="container">
     <div class="courses__wrap">
-      <app-search></app-search>
+      <app-search (coursesSearch)="onSearchCourses($event)"></app-search>
       <app-button
         class="courses__button--end"
         [className]="'button--secondary'"
@@ -10,17 +10,28 @@
         [dataTestId]="'add-course-button'"
         (buttonClick)="onAddCourseClick()">
       </app-button>
-      <app-course-list
-        [courses]="courses"
-        (courseEdit)="onEditCourse($event)"
-        (courseDelete)="onDeleteCourse($event)">
-      </app-course-list>
-      <app-button
-        class="courses__button--center"
-        [text]="'Load more'"
-        [dataTestId]="'load-more-button'"
-        (buttonClick)="onLoadMoreClick()">
-      </app-button>
+      <ng-container *ngIf="filteredCourses.length > 0; else noData">
+        <app-course-list
+          [courses]="filteredCourses | orderBy : 'creationDate'"
+          (courseEdit)="onEditCourse($event)"
+          (courseDelete)="onDeleteCourse($event)">
+        </app-course-list>
+        <app-button
+          class="courses__button--center"
+          [text]="'Load more'"
+          [dataTestId]="'load-more-button'"
+          (buttonClick)="onLoadMoreClick()">
+        </app-button>
+      </ng-container>
+      <ng-template #noData>
+        <div class="courses__info">
+          <p class="courses__text">No data. Feel free to add new course</p>
+          <img
+            src="./assets/images/no-data.png"
+            alt="No data image"
+            width="180" />
+        </div>
+      </ng-template>
     </div>
   </div>
 </section>
