@@ -70,7 +70,7 @@ describe('CourseItemBorderDirective', () => {
     expect(element.style.borderColor).toBe('rgb(149, 192, 55)');
   });
 
-  it('should have a blue border if creation date is in the past more than 14 days', () => {
+  it('should not have border if creation date is in the past more than 14 days', () => {
     const currentDate = new Date();
     directive.creationDate = new Date(currentDate.getTime() - MS_PER_DAY * 21);
 
@@ -78,6 +78,6 @@ describe('CourseItemBorderDirective', () => {
     fixture.detectChanges();
 
     const element = fixture.nativeElement.querySelector('div');
-    expect(element.style.borderColor).toBe('transparent');
+    expect(element.style.borderStyle).toBe('hidden');
   });
 });

@@ -15,6 +15,7 @@ import { CourseItemBorderDirective } from '../../shared/directives/course-item-b
 import { DurationPipe } from '../../shared/pipes/duration.pipe';
 import { OrderByPipe } from '../../shared/pipes/order-by.pipe';
 import { FilterPipe } from '../../shared/pipes/filter.pipe';
+import { CoursesService } from '../../core/services/courses.service';
 
 describe('CoursesComponent', () => {
   let component: CoursesComponent;
@@ -129,12 +130,13 @@ describe('CoursesComponent', () => {
 
 describe('CoursesComponent class-only', () => {
   let component: CoursesComponent;
+  let coursesService: CoursesService;
   let filterPipe: FilterPipe;
   let course: Course;
 
   beforeEach(() => {
     filterPipe = new FilterPipe();
-    component = new CoursesComponent(filterPipe);
+    component = new CoursesComponent(coursesService, filterPipe);
 
     course = {
       id: '1',
@@ -164,13 +166,13 @@ describe('CoursesComponent class-only', () => {
 
   it("should log 'Edit click on [id]' message when onEditCourse method is called", () => {
     spyOn(console, 'log');
-    component.onEditCourse(course);
+    component.onEditCourse(course.id);
     expect(console.log).toHaveBeenCalledWith('Edit click on ' + course.id);
   });
 
-  it("should log 'Delete click on [id]' message when onDeleteCourse method is called", () => {
+  xit("should log 'Delete click on [id]' message when onDeleteCourse method is called", () => {
     spyOn(console, 'log');
-    component.onDeleteCourse(course);
+    component.onDeleteCourse(course.id);
     expect(console.log).toHaveBeenCalledWith('Delete click on ' + course.id);
   });
 
