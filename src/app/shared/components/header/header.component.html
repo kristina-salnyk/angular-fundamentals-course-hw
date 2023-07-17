@@ -2,7 +2,7 @@
   <div class="container">
     <div class="header__wrap">
       <app-logo [title]="title"></app-logo>
-      <div class="header__navbar">
+      <div *appIfAuthenticated="isAuthenticated" class="header__navbar">
         <span *ngIf="username" class="navbar__item">
           <mat-icon class="navbar__icon">person</mat-icon>
           {{ username }}

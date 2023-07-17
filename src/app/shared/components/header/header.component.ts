@@ -9,15 +9,21 @@ import { AuthService } from '../../../core/services/auth.service';
 })
 export class HeaderComponent implements OnInit {
   username = '';
+  isAuthenticated = false;
   @Input() title = '';
 
   constructor(private authService: AuthService) {}
 
   ngOnInit() {
     this.username = this.authService.getUserInfo();
+    this.isAuthenticated = this.authService.isAuthenticated();
 
     this.authService.usernameChanged.subscribe((username: string) => {
       this.username = username;
+    });
+
+    this.authService.isAuthChanged.subscribe((isAuthenticated: boolean) => {
+      this.isAuthenticated = isAuthenticated;
     });
   }
 
