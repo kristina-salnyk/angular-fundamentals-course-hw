@@ -41,13 +41,13 @@ describe('CourseListComponent class-only', () => {
 
   it('should raise courseEdit event with the selected course', () => {
     spyOn(component.courseEdit, 'emit');
-    component.onEditCourse(course);
-    expect(component.courseEdit.emit).toHaveBeenCalledWith(course);
+    component.onEditCourse(course.id);
+    expect(component.courseEdit.emit).toHaveBeenCalledWith(course.id);
   });
 
   it('should raise courseDelete event with the selected course', () => {
     spyOn(component.courseDelete, 'emit');
-    component.onDeleteCourse(course);
-    expect(component.courseDelete.emit).toHaveBeenCalledWith(course);
+    component.onDeleteCourse(course.id);
+    expect(component.courseDelete.emit).toHaveBeenCalledWith(course.id);
   });
 });

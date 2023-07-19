@@ -1,6 +1,7 @@
 <app-header [title]="title"></app-header>
 <main>
-  <app-location></app-location>
-  <app-courses></app-courses>
+  <app-location *appIfAuthenticated="isAuth"></app-location>
+  <app-courses *appIfAuthenticated="isAuth"></app-courses>
+  <app-login *appIfAuthenticated="!isAuth"></app-login>
 </main>
 <app-footer></app-footer>

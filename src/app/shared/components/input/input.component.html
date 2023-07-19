@@ -1,7 +1,14 @@
-<input
-  class="input"
-  [name]="name"
-  [type]="type"
-  [placeholder]="placeholder"
-  [(ngModel)]="value"
-  (ngModelChange)="onChange()" />
+<div class="input__wrap">
+  <div *ngIf="label" class="input__label">
+    <label class="label__name" [for]="id">{{ label }}</label>
+    <span class="label__required" *ngIf="required"><sup>*</sup>required</span>
+  </div>
+  <input
+    class="input"
+    [id]="id"
+    [name]="name"
+    [type]="type"
+    [placeholder]="placeholder"
+    [(ngModel)]="value"
+    (ngModelChange)="onChange()" />
+</div>

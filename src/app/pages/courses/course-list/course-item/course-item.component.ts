@@ -24,6 +24,8 @@ export class CourseItemComponent {
   }
 
   onDeleteClick() {
-    this.courseDelete.emit();
+    if (confirm('Do you really want to delete this course?')) {
+      this.courseDelete.emit();
+    }
   }
 }

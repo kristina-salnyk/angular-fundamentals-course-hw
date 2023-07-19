@@ -1,0 +1,27 @@
+<section class="login">
+  <div class="container">
+    <div class="login__wrap">
+      <h2 class="login__title">Login</h2>
+      <form class="login__form" (submit)="onSubmit($event)">
+        <app-input
+          [label]="'Email:'"
+          [name]="'email'"
+          [type]="'email'"
+          [placeholder]="'Enter e-mail'"
+          [required]="true"
+          [(value)]="email" />
+        <app-input
+          [label]="'Password:'"
+          [name]="'password'"
+          [type]="'password'"
+          [placeholder]="'Enter password'"
+          [required]="true"
+          [(value)]="password" />
+        <div class="login__buttons">
+          <a class="login__link" href="#">Forgot password?</a>
+          <app-button [type]="'submit'" [text]="'Login'" />
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
