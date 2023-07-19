@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatIconModule } from '@angular/material/icon';
 
 import { HeaderComponent } from './header.component';
-import { LogoComponent } from './logo/logo.component';
+import { SharedModule } from '../../shared.module';
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
@@ -10,8 +10,8 @@ describe('HeaderComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [HeaderComponent, LogoComponent],
-      imports: [MatIconModule],
+      declarations: [],
+      imports: [SharedModule, MatIconModule],
     });
     fixture = TestBed.createComponent(HeaderComponent);
     component = fixture.componentInstance;

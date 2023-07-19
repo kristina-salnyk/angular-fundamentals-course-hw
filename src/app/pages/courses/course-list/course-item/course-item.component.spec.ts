@@ -1,14 +1,12 @@
 import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { DatePipe, UpperCasePipe } from '@angular/common';
-import { MatIconModule } from '@angular/material/icon';
 import { By } from '@angular/platform-browser';
 
 import { CourseItemComponent } from './course-item.component';
-import { ButtonComponent } from '../../../../shared/components/button/button.component';
 import { Course } from '../../../../core/models/Course.model';
-import { CourseItemBorderDirective } from '../../../../shared/directives/course-item-border.directive';
 import { DurationPipe } from '../../../../shared/pipes/duration.pipe';
+import { CoursesModule } from '../../courses.module';
 
 @Component({
   selector: 'app-host-component',
@@ -49,13 +47,8 @@ describe('CourseItemComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        CourseItemComponent,
-        ButtonComponent,
-        CourseItemBorderDirective,
-        DurationPipe,
-      ],
-      imports: [MatIconModule],
+      declarations: [],
+      imports: [CoursesModule],
     });
     fixture = TestBed.createComponent(CourseItemComponent);
     component = fixture.componentInstance;
@@ -109,6 +102,7 @@ describe('CourseItemComponent class-only', () => {
   });
 
   it('should raise courseDelete event when onDeleteClick method is called', () => {
+    spyOn(window, 'confirm').and.returnValue(true);
     spyOn(component.courseDelete, 'emit');
     component.onDeleteClick();
     expect(component.courseDelete.emit).toHaveBeenCalledWith();
@@ -126,13 +120,8 @@ describe('CourseItemComponent stand-alone', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        CourseItemComponent,
-        ButtonComponent,
-        CourseItemBorderDirective,
-        DurationPipe,
-      ],
-      imports: [MatIconModule],
+      declarations: [],
+      imports: [CoursesModule],
     }).compileComponents();
   }));
 
@@ -218,6 +207,7 @@ describe('CourseItemComponent stand-alone', () => {
   });
 
   it("should raise the courseDelete event when 'Delete' button is clicked", () => {
+    spyOn(window, 'confirm').and.returnValue(true);
     spyOn(component.courseDelete, 'emit');
 
     const deleteBtnDe = courseDe.query(By.css('[data-testid="delete-button"]'));
@@ -236,14 +226,8 @@ describe('CourseItemComponent test-host', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        CourseItemComponent,
-        ButtonComponent,
-        CourseItemBorderDirective,
-        TestHostComponent,
-        DurationPipe,
-      ],
-      imports: [MatIconModule],
+      declarations: [CourseItemComponent, TestHostComponent],
+      imports: [CoursesModule],
     }).compileComponents();
   }));
 
@@ -317,7 +301,9 @@ describe('CourseItemComponent test-host', () => {
   });
 
   it("should raise the courseDelete event when 'Delete' button is clicked", () => {
+    spyOn(window, 'confirm').and.returnValue(true);
     const deleteBtnDe = courseDe.query(By.css('[data-testid="delete-button"]'));
+
     deleteBtnDe.triggerEventHandler('click');
     expect(testHost.courseDelete).toBe(testHost.course);
   });

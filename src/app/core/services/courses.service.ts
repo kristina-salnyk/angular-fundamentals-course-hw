@@ -6,7 +6,7 @@ import { Course } from '../models/Course.model';
   providedIn: 'root',
 })
 export class CoursesService {
-  private courses: Course[] = [
+  courses: Course[] = [
     {
       id: '1',
       title: 'Video Course 1. Name tag',

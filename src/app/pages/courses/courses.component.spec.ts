@@ -5,17 +5,11 @@ import { MatIconModule } from '@angular/material/icon';
 import { By } from '@angular/platform-browser';
 
 import { CoursesComponent } from './courses.component';
-import { CourseListComponent } from './course-list/course-list.component';
-import { CourseItemComponent } from './course-list/course-item/course-item.component';
-import { SearchComponent } from './search/search.component';
-import { ButtonComponent } from '../../shared/components/button/button.component';
-import { InputComponent } from '../../shared/components/input/input.component';
 import { Course } from '../../core/models/Course.model';
-import { CourseItemBorderDirective } from '../../shared/directives/course-item-border.directive';
-import { DurationPipe } from '../../shared/pipes/duration.pipe';
-import { OrderByPipe } from '../../shared/pipes/order-by.pipe';
 import { FilterPipe } from '../../shared/pipes/filter.pipe';
 import { CoursesService } from '../../core/services/courses.service';
+import { SharedModule } from '../../shared/shared.module';
+import { CoursesModule } from './courses.module';
 
 describe('CoursesComponent', () => {
   let component: CoursesComponent;
@@ -24,19 +18,9 @@ describe('CoursesComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        CoursesComponent,
-        SearchComponent,
-        CourseListComponent,
-        CourseItemComponent,
-        ButtonComponent,
-        InputComponent,
-        CourseItemBorderDirective,
-        DurationPipe,
-        OrderByPipe,
-      ],
-      imports: [MatIconModule, FormsModule],
-      providers: [OrderByPipe],
+      declarations: [],
+      imports: [MatIconModule, FormsModule, SharedModule, CoursesModule],
+      providers: [FilterPipe, CoursesService],
     });
     fixture = TestBed.createComponent(CoursesComponent);
     component = fixture.componentInstance;
@@ -135,6 +119,7 @@ describe('CoursesComponent class-only', () => {
   let course: Course;
 
   beforeEach(() => {
+    coursesService = new CoursesService();
     filterPipe = new FilterPipe();
     component = new CoursesComponent(coursesService, filterPipe);
 
@@ -170,10 +155,10 @@ describe('CoursesComponent class-only', () => {
     expect(console.log).toHaveBeenCalledWith('Edit click on ' + course.id);
   });
 
-  xit("should log 'Delete click on [id]' message when onDeleteCourse method is called", () => {
-    spyOn(console, 'log');
+  it('should call the removeCourse method of the coursesService when the onDeleteCourse method is called', () => {
+    spyOn(coursesService, 'removeCourse');
     component.onDeleteCourse(course.id);
-    expect(console.log).toHaveBeenCalledWith('Delete click on ' + course.id);
+    expect(coursesService.removeCourse).toHaveBeenCalledWith(course.id);
   });
 
   describe('ngOnInit', () => {
@@ -194,18 +179,9 @@ describe('CoursesComponent stand-alone', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        CoursesComponent,
-        SearchComponent,
-        CourseListComponent,
-        CourseItemComponent,
-        ButtonComponent,
-        InputComponent,
-        CourseItemBorderDirective,
-        DurationPipe,
-        OrderByPipe,
-      ],
-      imports: [MatIconModule, FormsModule],
+      declarations: [],
+      imports: [MatIconModule, FormsModule, SharedModule, CoursesModule],
+      providers: [FilterPipe, CoursesService],
     }).compileComponents();
   }));
 

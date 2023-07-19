@@ -4,11 +4,11 @@ import { EventEmitter, Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class AuthService {
-  private readonly USER_LOCAL_STORAGE_KEY = 'user';
-  private readonly TOKEN_LOCAL_STORAGE_KEY = 'token';
-  private username = 'Mike';
-  private token = 'token-example';
-  private isAuth = false;
+  readonly USER_LOCAL_STORAGE_KEY = 'user';
+  readonly TOKEN_LOCAL_STORAGE_KEY = 'token';
+  username = 'Mike';
+  token = 'token-example';
+  isAuth = false;
   usernameChanged = new EventEmitter<string>();
   isAuthChanged = new EventEmitter<boolean>();
 
